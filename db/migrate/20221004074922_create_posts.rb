@@ -1,9 +1,9 @@
 class CreatePosts < ActiveRecord::Migration[6.1]
   def change
     create_table :posts do |t|
-      t.string :title
-      t.text :description
-      t.boolean :privacy
+      t.string :title, null: false
+      t.text :description, null: false
+      t.boolean :privacy, null: false
 
       t.timestamps
     end
