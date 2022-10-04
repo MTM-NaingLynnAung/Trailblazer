@@ -1,2 +1,16 @@
-h1 Users#index
-p Find me in app/views/users/index.html.slim
+table
+  thead
+   tr
+    th ID
+    th Name
+    th Email 
+    th Phone
+    th Address
+  tbody
+    - @users.each_with_index  do |user, index|
+      tr
+        td == user.id
+        td == user.name
+        td == user.email
+        td == user.phone
+        td == user.address
