@@ -18,6 +18,5 @@ module User::Contract
     validates :password_confirmation, presence: true
     validates :phone, numericality: true, allow_blank: true, length: { maximum: 13 }
     validates :address, allow_blank: true, length: { maximum: 255 }
-    validates :dob, allow_blank: true 
   end
 end

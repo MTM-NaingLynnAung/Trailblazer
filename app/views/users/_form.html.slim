@@ -1,0 +1,38 @@
+= form_with model: user, local: true do |form|
+
+  .form-group
+    = form.label :name, 'User Name', class:'required'
+    = form.text_field :name, class:'form-control'
+    - if user.errors[:name].any?
+        .alert.alert-danger #{ user.errors.full_messages_for(:name)[0] }
+  .form-group
+    = form.label :email, class:'required'
+    = form.text_field :email, class:'form-control'
+    - if user.errors[:email].any?
+        .alert.alert-danger #{ user.errors.full_messages_for(:email)[0] }
+  - if user.id == nil
+    .form-group
+      = form.label :password, class:'required'
+      = form.password_field :password, class:'form-control'
+      - if user.errors[:password].any?
+          .alert.alert-danger #{ user.errors.full_messages_for(:password)[0] }
+    .form-group
+      = form.label :password_confirmation, class:'required'
+      = form.password_field :password_confirmation, class:'form-control'
+      - if user.errors[:password_confirmation].any?
+          .alert.alert-danger #{ user.errors.full_messages_for(:password_confirmation)[0] }
+  .form-group
+    = form.label :phone
+    = form.text_field :phone, class:'form-control'
+  .form-group
+    = form.label :address
+    = form.text_area :address, class:'form-control'
+  .form-group
+    = form.label :dob, 'Birthday'
+    = form.date_field :dob, class:'form-control', value: user.dob
+  .form-group
+    = form.label :user_type
+    = form.select :user_type, ['User', 'Admin'], {}, {class: 'form-control'}
+  .d-flex.justify-content-between.mb-3
+    = link_to 'Back', back, class:'btn btn-dark'
+    = form.submit 'Confirm', class:'btn btn-primary'

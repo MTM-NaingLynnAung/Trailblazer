@@ -7,7 +7,7 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.integer :phone
       t.text :address
       t.date :dob
-      t.integer :user_type, null: false
+      t.string :user_type, null: false
 
       t.timestamps
     end
