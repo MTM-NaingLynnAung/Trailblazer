@@ -1,2 +1,16 @@
-h1 Login#login
-p Find me in app/views/login/login.html.slim
+- if flash[:alert]
+  .alert.alert-danger.alert-dismissible.fade.show role="alert"
+    = flash[:alert]
+    button.close type="button" data-dismiss="alert" aria-label="Close"
+      span aria-hidden="true" = "&times".html_safe
+.col-4.mx-auto.bg-light.mt-5.py-2
+  h2.form-title Login
+  = form_with model: @form, url: login_path, method: :post do |form|
+    .form-group
+      = form.label :email, class: 'required'
+      = form.text_field :email, class: 'form-control'
+    .form-group
+      = form.label :password, class: 'required'
+      = form.password_field :password, class: 'form-control mb-4'
+    .form-group
+      = form.submit 'Login', class: 'btn btn-primary btn-block'

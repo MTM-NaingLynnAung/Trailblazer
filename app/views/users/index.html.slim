@@ -1,4 +1,4 @@
-div.container.mt-5
+.mt-5
   = link_to 'Create User', new_user_path, class:'btn btn-primary mb-3'
   table.table
     thead
@@ -10,7 +10,7 @@ div.container.mt-5
       th User Type
       th Actions
     tbody
-      - @users.each_with_index  do |user, index|
+      - @users.each do |user|
         tr
           td == user.id
           td == user.name

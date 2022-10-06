@@ -24,9 +24,13 @@
   .form-group
     = form.label :phone
     = form.text_field :phone, class:'form-control'
+    - if user.errors[:phone].any?
+      .alert.alert-danger #{ user.errors.full_messages_for(:phone)[0] }
   .form-group
     = form.label :address
     = form.text_area :address, class:'form-control'
+    - if user.errors[:address].any?
+      .alert.alert-danger #{ user.errors.full_messages_for(:address)[0] }
   .form-group
     = form.label :dob, 'Birthday'
     = form.date_field :dob, class:'form-control', value: user.dob
