@@ -1,13 +1,20 @@
 .col-8.mx-auto.mt-5
-  .d-flex.justify-content-end
+  .d-flex.justify-content-between
+    = form_with url: search_posts_path(@last_search_keyword), method: :get do |form|
+      = form.text_field :search_keyword, class: "form-control", value: @last_search_keyword
     = link_to 'Create Post', new_post_path, class: 'btn btn-primary mb-3'
-  - @posts.each do |post|
-    .card.bg-light.mb-3
-      .card-header.py-2
-        h5.mb-0 #{ post.title.upcase } #{ post.privacy == false ?'<i class="fa-sharp fa-solid fa-lock" style="font-size: 13px;"></i>'.html_safe : '<i class="fa-sharp fa-solid fa-earth-asia" style="font-size: 13px;"></i>'.html_safe }
-        span style="font-size:12px;" Last updated on : #{ post.created_at.strftime("%Y/%m/%d %I:%M:%S %p") }
-      .card-body
-        p.card-text.mx-3 #{ post.description.truncate(200) }
-      .d-flex.justify-content-end.mb-3
-        = link_to 'Show Detail', post, class: 'btn btn-sm btn-success'
-        = button_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure to delete' }, class: 'btn btn-sm btn-danger mx-3' 
+
+  - @model.each do |post|
+    - if current_user.id == post.user_id || current_user.user_type == 'Admin' || post.privacy == true
+      .card.bg-light.mb-3
+        .card-header.py-2
+          h5.mb-0 #{ post.title.upcase } #{ post.privacy == false ?'<i class="fa-sharp fa-solid fa-lock" style="font-size: 13px;"></i>'.html_safe : '<i class="fa-sharp fa-solid fa-earth-asia" style="font-size: 13px;"></i>'.html_safe }
+          span style="font-size:12px;" Last updated on : #{ post.created_at.strftime("%Y/%m/%d %I:%M:%S %p") }
+          p style="font-size:12px;" Created By : #{ post.user.email }
+        .card-body
+          p.card-text.mx-3 #{ post.description.truncate(200) }
+        - if current_user.id == post.user_id || current_user.user_type == 'Admin'
+          .d-flex.justify-content-end.mb-3
+            = link_to 'Show Detail', post, class: 'btn btn-sm btn-success'
+            = button_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure to delete' }, class: 'btn btn-sm btn-danger mx-3' 
+

@@ -11,6 +11,7 @@
       = form.text_field :email, class: 'form-control'
     .form-group
       = form.label :password, class: 'required'
-      = form.password_field :password, class: 'form-control mb-4'
-    .form-group
+      = form.password_field :password, class: 'form-control'
+    = link_to 'Forgot Password?', password_reset_path
+    .form-group.mt-3
       = form.submit 'Login', class: 'btn btn-primary btn-block'

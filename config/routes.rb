@@ -2,6 +2,10 @@ Rails.application.routes.draw do
   root 'login#login'
   post '/login', to: 'login#action_login'
   delete '/logout', to: 'login#logout'
+  get 'password/reset', to: 'login#password_reset'
+  post 'password/reset', to: 'login#password_reset_send'
+  get '/reset_password', to: 'login#reset_password'
+  patch '/reset_password', to: 'login#reset_password_send'
   resources :users do
     collection do 
       get :profile
@@ -11,6 +15,10 @@ Rails.application.routes.draw do
       put :edit_password, to: 'users#update_password'
     end
   end
-  resources :posts
+  resources :posts do
+    collection do
+      get :search
+    end
+  end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

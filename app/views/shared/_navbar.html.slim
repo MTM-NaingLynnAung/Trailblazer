@@ -3,9 +3,10 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
     = link_to 'BulletinBoard', posts_path, class:'navbar-brand'
     .collapse.navbar-collapse.justify-content-between#navbarNav
       ul.navbar-nav
-        - if logged_in?
+        - if logged_in? && current_user.user_type == 'Admin'
           li.nav-item
             = link_to 'User List', users_path, class: 'nav-link'
+        - if logged_in?
           li.nav-item
             = link_to 'Post List', posts_path, class: 'nav-link'
       ul.navbar-nav.justify-content-end

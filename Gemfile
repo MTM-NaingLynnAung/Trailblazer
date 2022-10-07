@@ -22,6 +22,8 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
+gem 'devise'
+
 gem 'slim-rails', '~> 3.3'
 gem 'trailblazer-rails', '~> 2.1', '>= 2.1.7'
 

@@ -1,3 +1,4 @@
+require 'reform/form/validation/unique_validator'
 module User::Contract
   class Update < Reform::Form
     property :name

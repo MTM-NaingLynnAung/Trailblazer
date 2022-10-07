@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   def index
     run Post::Operation::Index do |result|
-      @posts = result[:posts]
+      @model = result[:posts]
     end
   end
 
@@ -37,6 +37,14 @@ class PostsController < ApplicationController
   def destroy
     run Post::Operation::Destroy do |result|
       redirect_to posts_path, notice: 'Post deleted successfully'
+    end
+  end
+
+  def search
+    run Post::Operation::Search do |result|
+      @last_search_keyword = result[:last_search_keyword]
+      render :index
+      return
     end
   end
 end
