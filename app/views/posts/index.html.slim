@@ -1,9 +1,16 @@
 .col-8.mx-auto.mt-5
-  .d-flex.justify-content-between
-    = form_with url: search_posts_path(@last_search_keyword), method: :get do |form|
-      = form.text_field :search_keyword, class: "form-control", value: @last_search_keyword
-    = link_to 'Create Post', new_post_path, class: 'btn btn-primary mb-3'
-
+  .d-flex.justify-content-between.mb-3
+    = form_tag(search_posts_path, :method => "get") do
+      = text_field_tag :search_keyword, params[:search_keyword], :placeholder => 'Search ...', class: 'form-control'
+      
+    .btn-group.dropright
+      button.btn.btn-primary.dropdown-toggle data-toggle="dropdown" aria-expanded="false"
+        'New Post
+      .dropdown-menu
+        = link_to 'Create Post', new_post_path, class: 'dropdown-item'
+        = link_to 'Import CSV', import_posts_path, class: 'dropdown-item'
+        = link_to 'Download CSV', export_posts_path(search: params[:search_keyword], format: :csv), class: 'dropdown-item'
+        = link_to 'Download CSV Format', csv_format_posts_path(format: :csv), class: 'dropdown-item' 
   - @model.each do |post|
     - if current_user.id == post.user_id || current_user.user_type == 'Admin' || post.privacy == true
       .card.bg-light.mb-3
@@ -13,8 +20,7 @@
           p style="font-size:12px;" Created By : #{ post.user.email }
         .card-body
           p.card-text.mx-3 #{ post.description.truncate(200) }
-        - if current_user.id == post.user_id || current_user.user_type == 'Admin'
           .d-flex.justify-content-end.mb-3
             = link_to 'Show Detail', post, class: 'btn btn-sm btn-success'
-            = button_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure to delete' }, class: 'btn btn-sm btn-danger mx-3' 
-
+            - if can_edit(post)
+              = button_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure to delete' }, class: 'btn btn-sm btn-danger mx-3' 

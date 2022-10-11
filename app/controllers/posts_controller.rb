@@ -1,8 +1,7 @@
 class PostsController < ApplicationController
+  before_action :authorized?
   def index
-    run Post::Operation::Index do |result|
-      @model = result[:posts]
-    end
+    run Post::Operation::Index
   end
 
   def new
@@ -46,5 +45,35 @@ class PostsController < ApplicationController
       render :index
       return
     end
+  end
+
+  def export
+    run Post::Operation::Export::CsvData do |result|
+      respond_to do |format|
+        format.html
+        format.csv { send_data result[:csv_text], filename: "#{Time.new.strftime("%Y/%m/%d-%I:%M:%S")}.csv" }
+      end
+    end
+  end
+
+  def csv_format
+    run Post::Operation::Export::Format do |result|
+      respond_to do |format|
+        format.html
+        format.csv { send_data result[:csv_format], filename: 'format.csv' }
+      end
+    end
+  end
+  def import
+    
+  end
+
+  def importCsv
+    run Post::Operation::Import, current_user_id: current_user.id do |result|
+      return redirect_to posts_path, notice: 'Import CSV successfully'
+    end
+    flash[:alert] = 'Something is wrong. Please check your csv format'
+    render :import, status: :unprocessable_entity
+    return
   end
 end

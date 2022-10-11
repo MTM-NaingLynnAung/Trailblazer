@@ -18,6 +18,10 @@ Rails.application.routes.draw do
   resources :posts do
     collection do
       get :search
+      get :export
+      get :csv_format
+      get :import
+      post :import, to: 'posts#importCsv'
     end
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
