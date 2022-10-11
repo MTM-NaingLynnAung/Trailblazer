@@ -37,6 +37,11 @@
   .form-group
     = form.label :user_type
     = form.select :user_type, ['User', 'Admin'], {}, {class: 'form-control'}
+  .form-group
+    = form.label :profile
+    = form.file_field :image, class: 'form-control'
+    - if user.errors[:image].any?
+      .alert.alert-danger #{ user.errors.full_messages_for(:image)[0] }
   .d-flex.justify-content-between.mb-3
     = link_to 'Back', back, class:'btn btn-dark'
     = form.submit 'Confirm', class:'btn btn-primary'

@@ -5,7 +5,8 @@
     tr
       th ID
       th Name
-      th Email 
+      th Email
+      th Profile
       th Phone
       th User Type
       th Actions
@@ -15,6 +16,9 @@
           td == user.id
           td == user.name
           td == user.email
+          td
+            - if user.image.attached?
+              = image_tag user.image, style: 'width:70px'
           td == user.phone
           td == user.user_type
           td

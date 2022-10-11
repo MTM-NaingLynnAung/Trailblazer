@@ -7,6 +7,7 @@ module User::Contract
     property :address
     property :dob
     property :user_type
+    property :image
 
     validates :name, presence: true, length: { maximum: 100 }
     validates :email, presence: true, length: { maximum: 100 },
