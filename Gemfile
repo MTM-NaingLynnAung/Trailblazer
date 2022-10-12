@@ -59,3 +59,5 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'reform'
 gem 'reform-rails'
 gem 'dry-validation'
+gem 'shrine', '~> 3.3'
+gem 'image_processing', '~> 1.12', '>= 1.12.1'

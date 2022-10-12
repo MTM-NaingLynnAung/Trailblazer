@@ -3,8 +3,7 @@
     h2.form-title.font-weight-normal.text-muted.my-3 User Detail
   .col
     .d-flex.justify-content-center.mb-2
-      - if @model.image.attached?
-        = image_tag @model.image, class: 'col-4 rounded-circle'
+      = image_tag (@model.image_url if @model.image), class: 'col-4 rounded-circle'
   .col
     p.form-control
       strong User Name : 
