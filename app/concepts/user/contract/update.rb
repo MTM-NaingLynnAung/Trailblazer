@@ -1,6 +1,7 @@
 require 'reform/form/validation/unique_validator'
 module User::Contract
   class Update < Reform::Form
+    include Sync::SkipUnchanged
     property :name
     property :email
     property :phone

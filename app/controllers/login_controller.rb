@@ -1,4 +1,5 @@
 class LoginController < ApplicationController
+  before_action :user_exist?, only: [:login]
   skip_before_action :authorized?
   def login
     run User::Operation::Login::Present

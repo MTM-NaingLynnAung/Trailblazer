@@ -47,6 +47,14 @@ class PostsController < ApplicationController
     end
   end
 
+  def filter
+    run Post::Operation::Filter, current_user_id: current_user.id do |result|
+      @last_filter = result[:last_filter]
+      render :index
+      return
+    end
+  end
+
   def export
     run Post::Operation::Export::CsvData do |result|
       respond_to do |format|

@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :admin?, except: [:new, :create]
+  before_action :admin?, only: [:index, :show, :destroy]
+  before_action :member?, only: [:new, :create]
   skip_before_action :authorized?, only: [:new, :create]
   def index
     run User::Operation::Index do |result|
