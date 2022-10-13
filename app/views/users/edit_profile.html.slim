@@ -3,6 +3,15 @@
   = form_with model: @model, url: edit_profile_users_path, method: :put, local: true do |form|
 
     .form-group
+      - if @model.image.present?
+        .d-flex.justify-content-center
+          = image_tag @model.image.present? ? @model.image.url : '' , class: 'rounded-circle', id: 'img_prev', style: 'width:100px;height:100px'
+      = form.label :profile, class: 'd-block'
+      = form.file_field :image, accept: 'image/png,image/jpeg', class: 'form-control', id: 'profile'
+      - if @model.errors[:image].any?
+        .alert.alert-danger #{ @model.errors.full_messages_for(:image)[0] }
+
+    .form-group
       = form.label :name, 'User Name', class:'required'
       = form.text_field :name, class:'form-control'
       - if @form.errors[:name].any?
@@ -32,3 +41,5 @@
     .d-flex.justify-content-between.mb-3
       = link_to 'Back', profile_users_path, class:'btn btn-dark'
       = form.submit 'Update', class:'btn btn-primary'
+
+= javascript_pack_tag 'user/_form'

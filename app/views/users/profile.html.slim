@@ -1,6 +1,10 @@
 .container.col-5.mx-auto.bg-light.py-3.mt-3.rounded-lg
-  .col.mb-4
+  .col
     h2.form-title.font-weight-normal.text-muted.my-3 Profile
+  .col
+    .d-flex.justify-content-center.mb-2
+      - if current_user.image?
+        = image_tag current_user.image.url,style: 'width:100px;height:100px;', class: 'rounded-circle'
   .col.mb-4
     p
       strong User Name : 

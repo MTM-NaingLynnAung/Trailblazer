@@ -17,8 +17,7 @@
           td == user.name
           td == user.email
           td
-            - if user.image.attached?
-              = image_tag user.image, style: 'width:70px'
+            = image_tag user.image.url, style: 'width:70px' if user.image?
           td == user.phone
           td == user.user_type
           td
