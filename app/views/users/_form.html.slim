@@ -1,6 +1,4 @@
 = form_with model: user, multipart: true, local: true do |form|
-  .d-flex.justify-content-center
-    = image_tag user.image.present? ? user.image : '', id: 'img_prev', class: 'rounded-circle col-5'
   .form-group
     = form.label :name, 'User Name', class:'required'
     = form.text_field :name, class:'form-control'
@@ -45,7 +43,7 @@
       = form.hidden_field :user_type, class: 'form-control', value: 'User'
   .form-group
     = form.label :profile, class: 'd-block'
-    = form.file_field :image, accept: 'image/png,image/jpeg', class: 'form-control', id: 'profile', value: ''
+    = form.file_field :image, accept: 'image/png,image/jpeg', class: 'form-control', id: 'profile'
     - if user.errors[:image].any?
       .alert.alert-danger #{ user.errors.full_messages_for(:image)[0] }
   .d-flex.justify-content-between.mb-3
