@@ -3,7 +3,7 @@
     h2.form-title.font-weight-normal.text-muted.my-3 Profile
   .col
     .d-flex.justify-content-center.mb-2
-      - if current_user.image?
+      - if current_user.image.present?
         = image_tag current_user.image, style: 'width:100px;height:100px;', class: 'rounded-circle'
   .col.mb-4
     p
