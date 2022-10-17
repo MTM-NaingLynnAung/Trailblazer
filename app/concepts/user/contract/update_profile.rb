@@ -1,5 +1,6 @@
 module User::Contract
   class UpdateProfile < Reform::Form
+    include Sync::SkipUnchanged
     property :name
     property :email
     property :phone
