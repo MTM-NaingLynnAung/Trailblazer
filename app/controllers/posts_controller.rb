@@ -56,7 +56,7 @@ class PostsController < ApplicationController
   end
 
   def export
-    run Post::Operation::Export::CsvData do |result|
+    run Post::Operation::Export::CsvData, current_user: current_user do |result|
       respond_to do |format|
         format.html
         format.csv { send_data result[:csv_text], filename: "#{Time.new.strftime("%Y/%m/%d-%I:%M:%S")}.csv" }
