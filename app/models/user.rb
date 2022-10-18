@@ -1,5 +1,5 @@
 class User < ApplicationRecord
+  include ImageUploader::Attachment(:image)
   has_secure_password
   has_many :posts, :dependent => :destroy
-  include ImageUploader::Attachment(:image)
 end

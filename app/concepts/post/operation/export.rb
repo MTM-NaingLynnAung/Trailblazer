@@ -5,10 +5,15 @@ module Post::Operation::Export
     step :to_csv!
 
     def get_posts(options, params:, **)
-      if params[:search].present?
-        options[:posts] = Post.where("title LIKE :search", search: "%#{params[:search]}%")
-      else
+      if params[:search].present? && options[:current_user][:user_type] == 'Admin'
+        options[:posts] = Post.where("title LIKE :search or description LIKE :search", search: "%#{params[:search]}%")
+      elsif params[:search].present? && options[:current_user][:user_type] == 'User'
+        options[:posts] = Post.where("user_id = #{options[:current_user][:id]}").where("title LIKE :search or description LIKE :search", search: "%#{params[:search]}%")
+      elsif options[:current_user][:user_type] == 'Admin'
         options[:posts] = Post.all.order('id DESC')
+      else
+        options[:posts] = Post.where(user_id: options[:current_user][:id], privacy: 'TRUE')
+      
       end
     end
 

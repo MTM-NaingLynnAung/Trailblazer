@@ -1,6 +1,6 @@
 = form_with model: user, multipart: true, local: true do |form|
   .d-flex.justify-content-center.mb-2
-    = image_tag (@model.image_url if user.image), class: 'col-4 rounded-circle'
+    = image_tag user.image.present? ? user.image.url : 'profile.png', class: 'rounded-circle', id: 'img_prev', style: 'width:100px;height:100px'
   .form-group
     = form.label :profile, class: 'd-block'
     = form.file_field :image, id: 'profile'

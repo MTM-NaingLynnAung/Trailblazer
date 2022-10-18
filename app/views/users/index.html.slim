@@ -17,7 +17,7 @@
           td == user.name
           td == user.email
           td
-            = image_tag (user.image_url if user.image), style: 'width: 70px'
+            = image_tag user.image.present? ? user.image.url : 'profile.png', style: 'width: 70px'
           td == user.phone
           td == user.user_type
           td
