@@ -2,6 +2,7 @@ require 'reform/form/validation/unique_validator'
 module User::Contract
   class Update < Reform::Form
     include Sync::SkipUnchanged
+    include ImageUploader::Attachment(:image)
     property :name
     property :email
     property :phone
@@ -9,6 +10,7 @@ module User::Contract
     property :dob
     property :user_type
     property :image
+    property :image_data
 
     validates :name, presence: true, length: { maximum: 100 }
     validates :email, presence: true, length: { maximum: 100 },

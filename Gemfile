@@ -22,6 +22,9 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
+gem 'shrine', '~> 3.3'
+gem 'image_processing', '~> 1.12', '>= 1.12.1'
+
 gem 'devise'
 
 gem 'slim-rails', '~> 3.3'
@@ -59,3 +62,5 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'reform'
 gem 'reform-rails'
 gem 'dry-validation'
+
+gem 'file_validators'

@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 2022_10_11_094347) do
     t.text "address"
     t.date "dob"
     t.string "user_type"
+    t.text "image_data"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

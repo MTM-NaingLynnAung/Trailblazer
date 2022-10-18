@@ -8,6 +8,7 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.text :address
       t.date :dob
       t.string :user_type, null: false
+      t.text :image_data
 
       t.timestamps
     end

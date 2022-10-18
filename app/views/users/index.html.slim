@@ -7,7 +7,6 @@
       th Name
       th Email
       th Profile
-      th Phone
       th User Type
       th Actions
     tbody
@@ -17,9 +16,7 @@
           td == user.name
           td == user.email
           td
-            - if user.image.attached?
-              = image_tag user.image, style: 'width:70px'
-          td == user.phone
+            = image_tag user.image.present? ? user.image_url : 'profile.png', style: 'width:70px;height:70px;'
           td == user.user_type
           td
             = link_to 'Detail', user, class: 'btn btn-sm btn-outline-success mr-2'
