@@ -1,7 +1,6 @@
 require 'reform/form/validation/unique_validator'
 module User::Contract
   class Create < Reform::Form
-    include Sync::SkipUnchanged
     property :name
     property :email
     property :password
@@ -14,7 +13,7 @@ module User::Contract
 
     validates :name, presence: true, length: { maximum: 100 }
     validates :email, presence: true, length: { maximum: 100 },
-                      format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i },
+                      format: { with: Constants::VAILD_EMAIL_REGEX },
                       unique: true
     validates :password, presence: true, confirmation: true
     validates :password_confirmation, presence: true

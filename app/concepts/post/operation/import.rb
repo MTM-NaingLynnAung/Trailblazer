@@ -13,7 +13,11 @@ module Post::Operation
           post_hash = {}
           post_hash[:title] = row["title"]
           post_hash[:description] = row["description"]
-          post_hash[:privacy] = row["privacy"] == "TRUE" ? 1 : 0
+          if row["privacy"].downcase == "true"
+            post_hash[:privacy] = 1
+          else
+            post_hash[:privacy] = 0
+          end
           post_hash[:user_id] = options["current_user_id"]
           post_hash[:created_at] = Time.now
           post_hash[:updated_at] = Time.now

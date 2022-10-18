@@ -2,7 +2,7 @@
 
   .form-group
     .d-flex.justify-content-center
-      = image_tag user.image.present? ? user.image.url : '' , class: 'rounded-circle', id: 'img_prev', style: 'width:100px;height:100px'
+      = image_tag user.image.present? ? user.image.url : 'profile.png' , class: 'rounded-circle', id: 'img_prev', style: 'width:100px;height:100px'
     = form.label :profile, class: 'd-block'
     = form.file_field :image, accept: 'image/png,image/jpeg', class: 'form-control', id: 'profile'
     - if user.errors[:image].any?
@@ -49,7 +49,7 @@
     .form-group hidden=('hidden')
       = form.label :user_type
       = form.hidden_field :user_type, class: 'form-control', value: 'User'
-  
+
   .d-flex.justify-content-between.mb-3
     = link_to 'Back', back, class:'btn btn-dark'
     = form.submit 'Confirm', class:'btn btn-primary'

@@ -4,6 +4,6 @@ module User::Contract
     property :email
 
     validates :email, presence: true, length: { maximum: 100 },
-                      format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i }
+                      format: { with: Constants::VAILD_EMAIL_REGEX }
   end
 end
