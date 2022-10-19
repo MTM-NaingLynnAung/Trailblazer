@@ -2,6 +2,7 @@ class PostsController < ApplicationController
   before_action :authorized?
   def index
     run Post::Operation::Index
+    @pagy, @model = pagy(result[:model])
   end
 
   def new
@@ -42,6 +43,7 @@ class PostsController < ApplicationController
   def search
     run Post::Operation::Search do |result|
       @last_search_keyword = result[:last_search_keyword]
+      @pagy, @model = pagy(result[:model])
       render :index
       return
     end
@@ -50,8 +52,9 @@ class PostsController < ApplicationController
   def filter
     run Post::Operation::Filter, current_user_id: current_user.id do |result|
       @last_filter = result[:last_filter]
+      @pagy, @model = pagy(result[:model])
       render :index
-      return
+      return  
     end
   end
 

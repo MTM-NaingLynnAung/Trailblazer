@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include Pagy::Backend
   before_action :current_user, :authorized?
   helper_method :current_user, :logged_in?, :admin?, :can_edit, :member?
 

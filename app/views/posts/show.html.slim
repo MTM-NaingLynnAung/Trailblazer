@@ -4,6 +4,9 @@
     span style="font-size:12px;" Last updated on : #{ @model.created_at.strftime("%Y/%m/%d %I:%M:%S %p") }
   .card-body
     p.card-text.mx-3 #{ @model.description }
+    .d-flex.justify-content-around
+      - @model.images.each do |image|
+        = image_tag (image), style: 'width:100px;height:100px;'
   - if can_edit(@model)
     .d-flex.justify-content-between.mb-3
       = link_to 'Back', posts_path, class: 'btn btn-sm btn-dark'

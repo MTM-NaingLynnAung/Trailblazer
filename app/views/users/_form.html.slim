@@ -3,7 +3,6 @@
     = image_tag user.image_url.present? ? user.image_url : 'profile.png', class: 'rounded-circle', id: 'img_prev', style: 'width:100px;height:100px;'
   .form-group
     = form.label :profile
-    = form.hidden_field :image, value: form.object.cached_image_data
     = form.file_field :image, class: 'form-control', id: 'profile'
     - if user.errors[:image].any?
       .alert.alert-danger #{ user.errors.full_messages_for(:image)[0] }
