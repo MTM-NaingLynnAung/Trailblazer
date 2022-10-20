@@ -1,4 +1,4 @@
-= form_with model: post, local: true do |form|
+= form_with model: post, local: true, multipart: true do |form|
   .form-group
     = form.label :title, class: 'required'
     = form.text_field :title, class: 'form-control'
@@ -19,6 +19,9 @@
       = form.label :privacy, 'Private', :value => 'false'
     - if post.errors[:privacy].any?
       .alert.alert-danger #{ post.errors.full_messages_for(:privacy)[0] }
+  .form-group
+    = form.label :image
+    = form.file_field :image, multiple: true, class: 'form-control' 
   .d-flex.justify-content-between.mb-3
     = link_to 'Back', back, class:'btn btn-dark'
     = form.submit 'Confirm', class:'btn btn-primary'

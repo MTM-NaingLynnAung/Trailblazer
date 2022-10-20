@@ -64,3 +64,4 @@ gem 'reform-rails'
 gem 'dry-validation'
 
 gem 'file_validators'
+gem 'carrierwave'

@@ -1,0 +1,13 @@
+p#notice = notice
+
+p
+  strong Post:
+  = @post_attachment.post_id
+
+p
+  strong Image:
+  = @post_attachment.image
+
+=> link_to "Edit", edit_post_attachment_path(@post_attachment)
+'|
+=< link_to "Back", post_attachments_path

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :post_attachments
   root 'login#login'
   post '/login', to: 'login#action_login'
   delete '/logout', to: 'login#logout'
