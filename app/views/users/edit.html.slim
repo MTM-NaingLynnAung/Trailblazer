@@ -3,6 +3,9 @@
     = flash[:alert]
     button.close type="button" data-dismiss="alert" aria-label="Close"
       span aria-hidden="true" = "&times".html_safe
-.col-5.m-auto
-  h2.form-title Edit User
-  = render 'form', user: @form,  back: user_path
+- if current_user.user_type == 'Admin'
+  .col-5.m-auto
+    h2.form-title Edit User
+    = render 'form', user: @form,  back: user_path
+- else
+  h1.text-center.mt-5.text-danger 404 Not Found
