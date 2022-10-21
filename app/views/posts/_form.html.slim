@@ -21,7 +21,9 @@
       .alert.alert-danger #{ post.errors.full_messages_for(:privacy)[0] }
   .form-group
     = form.label :image
-    = form.file_field :image, multiple: true, class: 'form-control' 
+    = form.file_field :image, multiple: true, class: 'form-control', accept: 'image/png,image/jpeg'
+    - if post.errors[:post_attachments].any?
+      .alert.alert-danger #{ post.errors.full_messages_for(:post_attachments)[0] }
   .d-flex.justify-content-between.mb-3
     = link_to 'Back', back, class:'btn btn-dark'
     = form.submit 'Confirm', class:'btn btn-primary'

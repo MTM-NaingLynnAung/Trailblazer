@@ -5,7 +5,7 @@
   .card-body
     p.card-text.mx-3 #{ @model.description }
     .d-flex.justify-content-around
-      - @post_image.each do |image|
+      - @model.post_attachments.each do |image|
         = image_tag image.image_url, style: 'width:100px;height:100px'
   - if can_edit(@model)
     .d-flex.justify-content-between.mb-3

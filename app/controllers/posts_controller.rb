@@ -10,9 +10,6 @@ class PostsController < ApplicationController
 
   def create
     run Post::Operation::Create, current_user: current_user do |result|
-      params[:post][:image].each do |img|
-        @post_image = result[:model].post_attachments.create!(:image => img)
-      end
       return redirect_to posts_path, notice: 'Post created successfully'
     end
     flash[:alert] = 'Failed to create post'
@@ -21,7 +18,6 @@ class PostsController < ApplicationController
 
   def show
     run Post::Operation::Show
-    @post_image = result[:model].post_attachments.all
     return 
   end
 

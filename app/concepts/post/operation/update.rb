@@ -7,5 +7,18 @@ module Post::Operation
     step Nested(Present)
     step Contract::Validate(key: :post)
     step Contract::Persist()
+    # step :current_image!
+
+    def current_image!(options, params:, **)
+      if params[:post][:image].present?
+        @photo = PostAttachment.where(post_id: params[:id])
+        @photo.each do |image|
+          image.destroy
+        end
+        params[:post][:image].each do |img|
+          options["post_image"] = options[:model].post_attachments.create!(:image => img)
+        end
+      end
+    end
   end
 end

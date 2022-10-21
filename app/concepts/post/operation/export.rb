@@ -18,11 +18,14 @@ module Post::Operation::Export
     end
 
     def to_csv!(options, **)
-      attributes = %w{ id title description privacy }
+      attributes = %w{ id title description privacy images}
       options[:csv_text] = CSV.generate(headers: true) do |csv|
                               csv << attributes
+
                               options[:posts].each do |post|
-                                csv << attributes.map{ |attr| post.send(attr) }
+                                  images = post.post_attachments.collect { |post_image| "/public#{post_image.image.url}" }.join(", ")
+                                csv << [post.id, post.title, post.description, post.privacy, images]
+                             
                               end
                             end
     end
