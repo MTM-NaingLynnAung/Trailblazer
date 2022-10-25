@@ -27,16 +27,6 @@ class PostsController < ApplicationController
 
   def update
     run Post::Operation::Update, current_user: current_user do |result|
-      @photo = PostAttachment.where(post_id: params[:id])
-      if params[:post][:image].present?
-        @photo.each do |image|
-          image.destroy
-        end
-        params[:post][:image].each do |img|
-          @post_image = result[:model].post_attachments.create!(:image => img)
-        end
-      end
-      
       return redirect_to post_path, notice: 'Post updated successfully'
     end
     flash[:alert] = 'Failed to update post'
