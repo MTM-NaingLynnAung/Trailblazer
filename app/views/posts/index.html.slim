@@ -26,3 +26,7 @@
             = link_to 'Show Detail', post, class: 'btn btn-sm btn-success'
             - if can_edit(post)
               = button_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure to delete' }, class: 'btn btn-sm btn-danger mx-3' 
+  - if @model.count == 0
+    p.text-center.my-5 No Result Found. Please try again
+  - else
+    == pagy_bootstrap_nav(@pagy)

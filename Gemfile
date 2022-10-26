@@ -65,3 +65,4 @@ gem 'dry-validation'
 
 gem 'file_validators'
 gem 'carrierwave'
+gem 'pagy', '~> 5.10'

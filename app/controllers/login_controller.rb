@@ -7,7 +7,11 @@ class LoginController < ApplicationController
 
   def action_login
     run User::Operation::Login do |result|
-      session[:user_id] = result[:user][:id]
+      if params[:user][:remember_me].to_i == 1
+        cookies.permanent[:auth_token] = result[:user][:auth_token]
+      else
+        cookies[:auth_token] = result[:user][:auth_token]
+      end
       redirect_to posts_path, notice: 'Login Successfully'
       return
     end
@@ -17,7 +21,7 @@ class LoginController < ApplicationController
   end
 
   def logout
-    session[:user_id] = nil
+    cookies.delete(:auth_token)
     redirect_to root_path, notice: 'Logout Successfully'
   end
 

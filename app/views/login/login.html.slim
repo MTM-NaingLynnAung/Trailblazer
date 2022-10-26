@@ -12,6 +12,9 @@
     .form-group
       = form.label :password, class: 'required'
       = form.password_field :password, class: 'form-control'
+    .form-group
+      = form.check_box :remember_me, class: 'mr-2', style: 'width:15px;height:15px'
+      = form.label :remember_me
     = link_to 'Forgot Password?', password_reset_path
     .form-group.mt-3
       = form.submit 'Login', class: 'btn btn-primary btn-block'

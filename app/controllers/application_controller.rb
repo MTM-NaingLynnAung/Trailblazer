@@ -1,9 +1,10 @@
 class ApplicationController < ActionController::Base
+  include Pagy::Backend
   before_action :current_user, :authorized?
   helper_method :current_user, :logged_in?, :admin?, :can_edit, :member?
 
   def current_user
-    @current_user ||= User.find_by(id: session[:user_id])
+    @current_user ||= User.find_by(auth_token: cookies[:auth_token])
   end
 
   def logged_in?
