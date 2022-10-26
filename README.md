@@ -5,20 +5,20 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+* Ruby version (2.6.9)
 
-* System dependencies
+* Rail version (6.1.7)
 
-* Configuration
+* trailblazer-rails version (2.1.7)
 
-* Database creation
+* slim-rails (3.3)
 
-* Database initialization
+# Gem Install
+* run => bundle install
+# Database setup
+* run => rails db:migrate
 
-* How to run the test suite
+# Project Run
+* run => rails s
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* All of feature is in develop branch
