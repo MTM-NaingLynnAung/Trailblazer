@@ -20,3 +20,5 @@ Things you may want to cover:
 
 # Project Run
 * run => rails s
+
+* All of feature is in develop branch
