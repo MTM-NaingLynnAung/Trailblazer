@@ -6,7 +6,7 @@ module Post::Contract
     property :user_id
     property :image, virtual: true
 
-    validates :title, presence: true
+    validates :title, presence: true, length: { maximum: 30 }
     validates :description, presence: true
     validates :privacy, presence: true
     validates :image, presence: true ,file_size: {less_than: 2.megabytes},

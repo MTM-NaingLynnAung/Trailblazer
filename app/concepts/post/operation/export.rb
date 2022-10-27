@@ -35,9 +35,10 @@ module Post::Operation::Export
     step :get_csv_format!
 
     def get_csv_format!(options, **)
-      attributes = ["title", "description", "privacy"]
+      attributes = ["title", "description", "privacy", "images"]
       options[:csv_format] = CSV.generate(headers: true) do |csv|
                                 csv << attributes
+                                csv << ["test", "test", "Only TRUE or FALSE", "/public/uploads/post_attachment/your_filename.png(Remember if your image isn't exist in project folder, it will be blank)"]
                               end
     end
   end

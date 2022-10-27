@@ -52,7 +52,7 @@ class PostsController < ApplicationController
   def filter
     run Post::Operation::Filter, current_user_id: current_user.id do |result|
       @last_filter = result[:last_filter]
-      @pagy, @model = pagy(result[:model])
+      @pagy, @model = pagy(result[:model])  
       render :index
       return
     end

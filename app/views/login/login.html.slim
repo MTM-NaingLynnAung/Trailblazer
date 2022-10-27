@@ -5,16 +5,23 @@
       span aria-hidden="true" = "&times".html_safe
 .col-4.mx-auto.bg-light.mt-5.py-2
   h2.form-title Login
-  = form_with model: @form, url: login_path, method: :post do |form|
+  = form_with model: @form, url: login_path, local: true, method: :post do |form|
     .form-group
       = form.label :email, class: 'required'
-      = form.text_field :email, class: 'form-control'
+      = form.text_field :email, class: 'form-control', value: params[:user].present? ? params[:user][:email] : ''
+      - if @form.errors[:email].any?
+        .alert.alert-danger #{ @form.errors.full_messages_for(:email)[0] }
     .form-group
       = form.label :password, class: 'required'
-      = form.password_field :password, class: 'form-control'
+      .position-relative
+        = form.password_field :password, class: 'form-control pwd'
+        <i class="fa-regular fa-eye-slash position-absolute showPwd" style="right:10px; top:11px; color:#0009;"></i>
+      - if @form.errors[:password].any?
+        .alert.alert-danger #{ @form.errors.full_messages_for(:password)[0] }
     .form-group
       = form.check_box :remember_me, class: 'mr-2', style: 'width:15px;height:15px'
       = form.label :remember_me
     = link_to 'Forgot Password?', password_reset_path
     .form-group.mt-3
       = form.submit 'Login', class: 'btn btn-primary btn-block'
+= javascript_pack_tag 'user/_form'

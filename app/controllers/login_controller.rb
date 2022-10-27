@@ -9,14 +9,17 @@ class LoginController < ApplicationController
     run User::Operation::Login do |result|
       if params[:user][:remember_me].to_i == 1
         cookies.permanent[:auth_token] = result[:user][:auth_token]
-      else
+      elsif params[:user][:remember_me].to_i == 0
         cookies[:auth_token] = result[:user][:auth_token]
       end
       redirect_to posts_path, notice: 'Login Successfully'
       return
     end
     if result.failure? && result[:email_pwd_fail]
-      redirect_to root_path, alert: 'Email or Password invalid'
+      flash[:alert] = 'Email or Password invalid'
+      render :login
+    else
+      render :login
     end
   end
 

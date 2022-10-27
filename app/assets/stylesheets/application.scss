@@ -4,3 +4,20 @@
   content: " *";
   color: red;
 }
+
+.active {
+  position: relative;
+}
+
+.active::after {
+  content: "";
+  position: absolute;
+  width: 60%;
+  height: 3px;
+  background: #1151ce;
+  left: 5px;
+}
+
+.nav-link {
+  padding: 0.3rem 1rem;
+}

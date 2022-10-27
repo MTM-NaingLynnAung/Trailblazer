@@ -8,4 +8,5 @@
     h2.form-title Edit Post
     = render 'form', post: @form, back: post_path
 - else
-  h1.text-center.mt-5.text-danger 404 Not Found
+  == render file: "#{Rails.root}/public/422.html"
+
