@@ -5,11 +5,11 @@
   color: red;
 }
 
-.active {
+.nav-item.active {
   position: relative;
 }
 
-.active::after {
+.nav-item.active::after {
   content: "";
   position: absolute;
   width: 60%;
