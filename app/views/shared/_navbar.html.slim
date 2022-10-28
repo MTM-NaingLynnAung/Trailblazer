@@ -1,6 +1,6 @@
-nav.navbar.navbar-expand-lg.navbar-light.bg-light
+nav.navbar.navbar-expand-lg.navbar-light style="background: #020d1e"
   .container-fluid
-    = link_to 'BulletinBoard', posts_path, class:'navbar-brand'
+    = link_to 'BulletinBoard', posts_path, class:'navbar-brand text-white'
     .collapse.navbar-collapse.justify-content-between#navbarNav
       ul.navbar-nav
         - if logged_in? && current_user.user_type == 'Admin'

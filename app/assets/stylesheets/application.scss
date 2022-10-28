@@ -21,3 +21,20 @@
 .nav-link {
   padding: 0.3rem 1rem;
 }
+
+.alert-danger {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.alert-info {
+  color: #0c5460;
+  background-color: #7ddaec;
+  border-color: #7ddaec;
+}
+
+.navbar-light .navbar-nav .nav-link,
+.navbar-lgint .navbar-nav .active > .nav-link {
+  color: #fff !important;
+}

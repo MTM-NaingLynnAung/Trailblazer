@@ -1,33 +1,33 @@
-.container.col-5.m-auto
+.container.col-5.mx-auto.py-3.mt-3.rounded-lg.text-white style="background: #020d1e"
   .col
-    h2.form-title.font-weight-normal.text-muted.my-3 User Detail
+    h2.form-title.font-weight-normal.my-3 User Detail
   .col
     .d-flex.justify-content-center.mb-2
       = image_tag @model.image.present? ? @model.image_url : 'profile.png', class: 'rounded-circle', style: 'width:100px;height:100px'
-  .col
-    p.form-control
+  .col.mt-4
+    p
       strong User Name : 
       = @model.name
   .col
-    p.form-control
+    p
       strong Email : 
       = @model.email
   .col
-    p.form-control
+    p
       strong Phone : 
       = @model.phone
   .col
-    p.form-control
+    p
       strong Address : 
       = @model.address
   .col
-    p.form-control
+    p
       strong Birthday : 
       = @model.dob
   .col
-    p.form-control
+    p
       strong User Type : 
       = @model.user_type
   .col.d-flex.justify-content-between
-    = link_to 'Back', users_path, class: 'btn btn-dark'
-    = link_to 'Edit User', edit_user_path(@model), class: 'btn btn-secondary mr-2'
+    = link_to 'Back', users_path, class: 'btn btn-outline-dark text-white'
+    = link_to 'Edit User', edit_user_path(@model), class: 'btn btn-outline-secondary mr-2 text-white'

@@ -1,4 +1,4 @@
-= form_with model: user, multipart: true, local: true do |form|
+= form_with model: user, multipart: true, local: true, class: 'text-white' do |form|
   .d-flex.justify-content-center.mb-2
     = image_tag user.image_url.present? ? user.image_url : 'profile.png', class: 'rounded-circle', id: 'img_prev', style: 'width:100px;height:100px;'
   .form-group
@@ -20,12 +20,16 @@
   - if user.id == nil
     .form-group
       = form.label :password, class:'required'
-      = form.password_field :password, class:'form-control'
+      .position-relative
+        = form.password_field :password, class:'form-control pwd'
+        <i class="fa-regular fa-eye-slash position-absolute showPwd" style="right:10px; top:11px; color:#0009;"></i>
       - if user.errors[:password].any?
           .alert.alert-danger #{ user.errors.full_messages_for(:password)[0] }
     .form-group
       = form.label :password_confirmation, class:'required'
-      = form.password_field :password_confirmation, class:'form-control'
+      .position-relative
+        = form.password_field :password_confirmation, class:'form-control cpwd'
+        <i class="fa-regular fa-eye-slash position-absolute cShowPwd" style="right:10px; top:11px; color:#0009;"></i>
       - if user.errors[:password_confirmation].any?
           .alert.alert-danger #{ user.errors.full_messages_for(:password_confirmation)[0] }
   .form-group
@@ -50,7 +54,7 @@
       = form.label :user_type
       = form.hidden_field :user_type, class: 'form-control', value: 'User'
   .d-flex.justify-content-between.mb-3
-    = link_to 'Back', back, class:'btn btn-dark'
-    = form.submit 'Confirm', class:'btn btn-primary'
+    = link_to 'Back', back, class:'btn btn-outline-dark text-white'
+    = form.submit 'Confirm', class:'btn btn-outline-primary'
 
 = javascript_pack_tag 'user/_form'

@@ -15,3 +15,12 @@ $(".showPwd").on('click', function() {
       $(".pwd").attr('type', 'password');
   }
 });
+
+$(".cShowPwd").on('click', function() {
+  $(this).toggleClass("fa-eye-slash fa-eye")
+  if ($(".cpwd").attr('type') === 'password') {
+      $(".cpwd").attr('type', 'text');
+  } else {
+      $(".cpwd").attr('type', 'password');
+  }
+});

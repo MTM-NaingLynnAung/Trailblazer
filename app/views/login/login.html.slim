@@ -3,7 +3,7 @@
     = flash[:alert]
     button.close type="button" data-dismiss="alert" aria-label="Close"
       span aria-hidden="true" = "&times".html_safe
-.col-4.mx-auto.bg-light.mt-5.py-2
+.col-4.mx-auto.mt-5.py-2.text-white style="background: #020d1e; box-shadow: 0 1px 5px #fff"
   h2.form-title Login
   = form_with model: @form, url: login_path, local: true, method: :post do |form|
     .form-group

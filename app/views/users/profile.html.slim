@@ -1,4 +1,4 @@
-.container.col-5.mx-auto.bg-light.py-3.mt-3.rounded-lg
+.container.col-5.mx-auto.py-3.mt-3.rounded-lg.text-white style="background: #020d1e"
   .col
     h2.form-title.font-weight-normal.text-muted.my-3 Profile
   .col
@@ -34,5 +34,5 @@
         strong User Type : 
         = current_user.user_type
   .col.d-flex.justify-content-between
-    = link_to 'Back', users_path, class: 'btn btn-sm btn-outline-dark'
-    = link_to 'Edit Profile', edit_profile_users_path, class: 'btn btn-sm btn-outline-secondary mr-2'
+    = link_to 'Back', users_path, class: 'btn btn-sm btn-outline-dark text-white'
+    = link_to 'Edit Profile', edit_profile_users_path, class: 'btn btn-sm btn-outline-secondary mr-2 text-white'

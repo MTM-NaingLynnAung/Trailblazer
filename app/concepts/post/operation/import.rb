@@ -8,6 +8,9 @@ module Post::Operation
     def import_csv!(options, params:, **)
       file = File.open(params[:file])
       csv = CSV.parse(file, headers: true)
+      if csv.count == 0
+        return false
+      end
       begin
         csv.each do |row|
           post_hash = {}

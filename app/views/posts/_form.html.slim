@@ -1,12 +1,12 @@
-= form_with model: post, local: true, multipart: true do |form|
+= form_with model: post, local: true, multipart: true, class: 'text-white' do |form|
   .form-group
     = form.label :title, class: 'required'
-    = form.text_field :title, class: 'form-control'
+    = form.text_field :title, class: 'form-control mb-1'
     - if post.errors[:title].any?
       .alert.alert-danger #{ post.errors.full_messages_for(:title)[0] }
   .form-group
     = form.label :description, class: 'required'
-    = form.text_area :description, class: 'form-control', rows: 8
+    = form.text_area :description, class: 'form-control mb-1', rows: 8
     - if post.errors[:description].any?
       .alert.alert-danger #{ post.errors.full_messages_for(:description)[0] }
   .form-group
@@ -21,9 +21,9 @@
       .alert.alert-danger #{ post.errors.full_messages_for(:privacy)[0] }
   .form-group
     = form.label :image
-    = form.file_field :image, multiple: true, class: 'form-control', accept: 'image/png,image/jpeg'
+    = form.file_field :image, multiple: true, class: 'form-control mb-1', accept: 'image/png,image/jpeg'
     - if post.errors[:image].any?
       .alert.alert-danger #{ post.errors.full_messages_for(:image)[0] }
   .d-flex.justify-content-between.mb-3
-    = link_to 'Back', back, class:'btn btn-dark'
-    = form.submit 'Confirm', class:'btn btn-primary'
+    = link_to 'Back', back, class:'btn btn-outline-dark text-white'
+    = form.submit 'Confirm', class:'btn btn-outline-primary'

@@ -1,6 +1,6 @@
 .col-5.m-auto
   h2.form-title Edit Profile
-  = form_with model: @model, url: edit_profile_users_path, method: :put, local: true do |form|
+  = form_with model: @model, url: edit_profile_users_path, method: :put, local: true, class: 'text-white' do |form|
     .d-flex.justify-content-center.mb-2
       = image_tag @model.image.present? ? @model.image_url : 'profile.png', class: 'rounded-circle', id: 'img_prev', style: 'width:100px;height:100px;'
     .form-group
@@ -42,6 +42,6 @@
       - if @form.errors[:image].any?
         .alert.alert-danger #{ @form.errors.full_messages_for(:image)[0] }
     .d-flex.justify-content-between.mb-3
-      = link_to 'Back', profile_users_path, class:'btn btn-dark'
-      = form.submit 'Update', class:'btn btn-primary'
+      = link_to 'Back', profile_users_path, class:'btn btn-outline-dark text-white'
+      = form.submit 'Update', class:'btn btn-outline-primary'
 = javascript_pack_tag 'user/_form'
