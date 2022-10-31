@@ -14,3 +14,9 @@ require("channels")
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+$(document).on('turbolinks:load', function() {
+  setTimeout(function() {
+    $('.alert-dismissible').fadeOut();
+  }, 5000);
+})
