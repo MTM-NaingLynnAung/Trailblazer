@@ -18,6 +18,13 @@ class LoginController < ApplicationController
     if result.failure? && result[:email_pwd_fail]
       flash[:alert] = 'Email or Password invalid'
       render :login
+    elsif result[:failed_attempts] < 3
+      params[:user][:failed_attempts] = result[:failed_attempts]
+      flash[:alert] = 'Email or Password invalid'
+      render :login
+    elsif result[:failed_attempts] == 3
+      flash[:alert] = 'Too many failed attempts'
+      countdown(10)
     else
       render :login
     end

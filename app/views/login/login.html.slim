@@ -21,6 +21,7 @@
     .form-group
       = form.check_box :remember_me, class: 'mr-2', style: 'width:15px;height:15px'
       = form.label :remember_me
+    = form.hidden_field :failed_attempts, value: params[:user].present? ? login_attempts(params) : 0
     = link_to 'Forgot Password?', password_reset_path
     .form-group.mt-3
       = form.submit 'Login', class: 'btn btn-primary btn-block'
