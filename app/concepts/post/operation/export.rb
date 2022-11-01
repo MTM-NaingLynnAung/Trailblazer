@@ -23,7 +23,7 @@ module Post::Operation::Export
                               csv << attributes
 
                               options[:posts].each do |post|
-                                  images = post.post_attachments.collect { |post_image| "/public#{post_image.image.url}" }.join(", ")
+                                  images = post.post_attachments.collect { |post_image| "public#{post_image.image.url}" }.join(", ")
                                 csv << [post.id, post.title, post.description, post.privacy, images]
                              
                               end
@@ -38,7 +38,7 @@ module Post::Operation::Export
       attributes = ["title", "description", "privacy", "images"]
       options[:csv_format] = CSV.generate(headers: true) do |csv|
                                 csv << attributes
-                                csv << ["test", "test", "Only TRUE or FALSE", "/public/uploads/post_attachment/your_filename.png(Remember if your image isn't exist in project folder, it will be blank)"]
+                                csv << ["test", "test", "Only TRUE or FALSE", "public/uploads/post_attachment/your_filename.png(Remember if your image isn't exist in project folder, it will be blank)"]
                               end
     end
   end

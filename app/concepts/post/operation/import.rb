@@ -36,7 +36,7 @@ module Post::Operation
               post_attach[:image] = nil
             else
               row["images"].split(/\s*,\s*/).each do |image|
-                post_attach[:image] = File.open("#{Rails.root}#{image}")
+                post_attach[:image] = File.open("#{Rails.root}/#{image}")
                 post_attach[:post_id] = @post.id
                 post_attach[:created_at] = Time.now
                 post_attach[:updated_at] = Time.now
