@@ -15,7 +15,7 @@
       = form.label :password, class: 'required'
       .position-relative
         = form.password_field :password, class: 'form-control pwd'
-        <i class="fa-regular fa-eye-slash position-absolute showPwd" style="right:10px; top:11px; color:#0009;"></i>
+        i class="fa-regular fa-eye-slash position-absolute showPwd" style='right:10px; top:11px; color:#0009;'
       - if @form.errors[:password].any?
         .alert.alert-danger #{ @form.errors.full_messages_for(:password)[0] }
     .form-group

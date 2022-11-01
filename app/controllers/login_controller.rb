@@ -6,7 +6,6 @@ class LoginController < ApplicationController
   end
 
   def action_login
-    
     run User::Operation::Login do |result|
       if params[:user][:remember_me].to_i == 1
         cookies.permanent[:auth_token] = result[:user][:auth_token]

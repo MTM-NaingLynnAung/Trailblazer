@@ -13,7 +13,6 @@ html
       = render 'shared/flash'
       = yield
 
-    javascript:
     - if current_user
       javascript:
         localStorage.removeItem('failed_attempts')
