@@ -13,10 +13,6 @@ module User::Operation
       if user && user.authenticate(params[:user][:password])
         options['user'] = user
         true
-      elsif user && !user.authenticate(params[:user][:password])
-        options['failed_attempts'] = params[:user][:failed_attempts].to_i
-        options['user'] = user
-        false
       else
         options['email_pwd_fail'] = 'Login Fail'
         false

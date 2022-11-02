@@ -16,7 +16,7 @@ module User::Contract
     validates :email, presence: true, length: { maximum: 100 },
                       format: { with: Constants::VAILD_EMAIL_REGEX },
                       unique: true
-    validates :phone, numericality: true, allow_blank: true, format: { with: Constants::VAILD_PHONE_REGEX, :message => "is invalid.. Eg- 09123456789" }
+    validates :phone, numericality: { :message => 'must be number' }, allow_blank: true, format: { with: Constants::VAILD_PHONE_REGEX, :message => "is invalid.. Eg- 09123456789" }
     validates :address, allow_blank: true, length: { maximum: 255 }
     validates :image, file_size: {less_than: 2.megabytes},
                       file_content_type: {allow: ['image/jpeg', 'image/png', 'image/webp']}

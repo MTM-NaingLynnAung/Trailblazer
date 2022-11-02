@@ -14,7 +14,7 @@ module User::Contract
     validates :email, presence: true, length: { maximum: 100 },
                       format: { with: Constants::VAILD_EMAIL_REGEX },
                       unique: true
-    validates :phone, numericality: { :message => 'must be number.' }, allow_blank: true, length: { minimum: 6, maximum: 13 }
+    validates :phone, numericality: { :message => 'must be number.' }, allow_blank: true, format: { with: Constants::VAILD_PHONE_REGEX, :message => "is invalid.. Eg- 09123456789" }
     validates :address, allow_blank: true, length: { maximum: 255 }
   end
 end

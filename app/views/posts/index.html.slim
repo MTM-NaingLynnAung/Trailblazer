@@ -18,8 +18,8 @@
             i class="fa-sharp fa-solid fa-sort-down drop-icon"
           .dropdown-content
             = form_with url: filter_posts_path, method: :get do |form|
-              = form.select :filter, options_for_select(['All', 'Other Posts', 'My Posts'], @last_filter ? @last_filter : ''), {}, {:class => "form-control drop-menu", onchange: 'this.form.submit()' }
-
+              = form.select :filter, options_for_select(['All', 'Other Posts', 'My Posts'], @last_filter ? @last_filter : ''), {}, {:class => "form-control drop-menu input-lg", onchange: 'this.form.submit()' }
+              i class="fa fa-sharp fa-solid fa-sort-down"
   - @model.each do |post|
     - if current_user.id == post.user_id || current_user.user_type == 'Admin' || post.privacy == true
       .card.mb-3.text-white style="background: #020d1e; box-shadow: 0px 2px 3px #fff;"
@@ -45,6 +45,6 @@
                 = button_to 'Delete', post, method: :delete, :class => 'btn btn-outline-danger'
   - if @model.count == 0
     p.text-center.my-5.text-white No Result Found. Please try again
-  - else
+  - elsif @pagy.pages > 1
     == pagy_bootstrap_nav(@pagy)
 = javascript_pack_tag 'post/index'

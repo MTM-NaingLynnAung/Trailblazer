@@ -12,11 +12,7 @@ module User::Operation
     step Nested(Present)
     step Contract::Validate(key: :user)
     step Contract::Persist()
-    # step :generate_password!
 
-    def generate_password!(options, model:, **)
-      model.user.password_digest = BCrypt::Password.create(params[:password])
-      model.user.save()
     end
   end
 end

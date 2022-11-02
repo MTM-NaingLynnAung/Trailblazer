@@ -23,6 +23,9 @@
       = form.label :remember_me
     = form.hidden_field :failed_attempts, id: 'failed'
     = link_to 'Forgot Password?', password_reset_path
+    .timer-div.timer-none
+      p.d-inline.text-danger Please try again after 
+      span.text-danger#timer
     .form-group.mt-3
       = form.submit 'Login', class: 'btn btn-primary btn-block submit'
 = javascript_pack_tag 'user/_form'

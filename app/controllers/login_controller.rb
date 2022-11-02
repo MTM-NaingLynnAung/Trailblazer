@@ -15,10 +15,10 @@ class LoginController < ApplicationController
       redirect_to posts_path, notice: 'Login Successfully'
       return
     end
-    if result[:failed_attempts] == 4
+    if params[:user][:failed_attempts].to_i == 4
       flash[:alert] = 'You have last chance to login'
       render :login
-    elsif result[:failed_attempts] == 5
+    elsif params[:user][:failed_attempts].to_i == 5
       flash[:alert] = 'Too many failed attempts. Please try again after 1 minute'
       render :login
     else

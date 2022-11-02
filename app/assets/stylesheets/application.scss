@@ -90,13 +90,34 @@
 
 .dropdown-content .drop-menu {
   color: black;
-  padding: 0 21px;
+  padding: 0 24px;
   text-decoration: none;
   display: block;
   height: 38px!important;
 }
 
-.dropdown-content .drop-menu:hover {background-color: #ddd;}
+.dropdown-content .drop-menu:hover {
+  background-color: #ddd;
+}
 
-.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
 
+select.input-lg {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+}
+
+select + i.fa {
+  float: right;
+  margin-top: -30px;
+  margin-right: 23px;
+  pointer-events: none;
+  padding-right: 5px;
+}
+
+.timer-none {
+  display: none;
+}

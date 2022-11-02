@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :authorized?
   def index
-    run Post::Operation::Index
+    run Post::Operation::Index, current_user: current_user
     @pagy, @model = pagy(result[:model])
   end
 
