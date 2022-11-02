@@ -6,12 +6,23 @@ module Post::Operation
     end
     step Nested(Present)
     step :current_user!
+    step :check_character!
     step Contract::Validate(key: :post)
     step Contract::Persist()
     step :create_image
 
     def current_user!(options, **)
       options[:params][:post][:user_id] = options['current_user'][:id]
+    end
+
+    def check_character!(options, params:, **)
+      byebug
+      if params[:post][:title] == Constants::CHECK_KEYWORDS
+        errors.add(:title, 'Donot use this character')
+        return false
+      else
+        return true
+      end
     end
 
     def create_image(options, params:, **)
