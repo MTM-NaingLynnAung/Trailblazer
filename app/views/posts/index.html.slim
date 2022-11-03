@@ -25,7 +25,7 @@
       .card.mb-3.text-white style="background: #020d1e; box-shadow: 0px 2px 3px #fff;"
         .card-header.py-2
           h5.mb-0 #{ post.title.upcase } #{ post.privacy == false ?'<i class="fa-sharp fa-solid fa-lock" style="font-size: 13px;"></i>'.html_safe : '<i class="fa-sharp fa-solid fa-earth-asia" style="font-size: 13px;"></i>'.html_safe }
-          span style="font-size:12px;" Last updated on : #{ post.created_at.strftime("%Y/%m/%d %I:%M:%S %p") }
+          span style="font-size:12px;" Last updated on : #{ post.updated_at.strftime("%Y/%m/%d %I:%M:%S %p") }
           p style="font-size:12px;" Created By : #{ post.user.email }
         .card-body
           p.card-text.mx-3 #{ post.description.truncate(200) }

@@ -15,7 +15,9 @@ module Post::Operation
         csv.each do |row|
           post_hash = {}
           post_attach = {}
-          if row["title"].blank? || row["description"].blank? || row["privacy"].blank? || row["images"].blank?
+          ban_keyword = Keyword.where(name: row["title"].gsub(Constants::REMOVE_SPECIAL_CHARACTER, ''))
+                               .or(Keyword.where(name: row["description"].gsub(Constants::REMOVE_SPECIAL_CHARACTER, '')))
+          if row["title"].blank? || row["description"].blank? || row["privacy"].blank? || row["images"].blank? || ban_keyword.present?
             return false
           else
             post_hash[:title] = row["title"]

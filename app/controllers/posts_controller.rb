@@ -75,15 +75,12 @@ class PostsController < ApplicationController
       end
     end
   end
-  def import
-    
-  end
 
   def importCsv
     run Post::Operation::Import, current_user_id: current_user.id do |result|
       return redirect_to posts_path, notice: 'Import CSV successfully'
     end
-    flash[:alert] = 'Something is wrong. Please check your csv format'
+    flash[:alert] = 'Something is wrong. Please check your csv format. If nothing is found, this will be ban keywords error. Check ban keywords list and try again'
     render :import, status: :unprocessable_entity
     return
   end
