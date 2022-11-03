@@ -21,7 +21,7 @@ module Post::Contract
     end
 
     def ban_keyword
-      errors.add(:title, "can't be use this keyword. Please check ban keywords list and avoid using this keywords.") if Keyword.where(name: title.gsub(Constants::REMOVE_SPECIAL_CHARACTER, '')).present?
+      errors.add(:title, "can't be use this keyword. #{title.upcase} is ban keywords in our services.") if Keyword.where(name: title.gsub(Constants::REMOVE_SPECIAL_CHARACTER, '')).present?
       errors.add(:description, "can't be use this keyword. Please check ban keywords list and avoid using this keywords.") if Keyword.where(name: description.gsub(Constants::REMOVE_SPECIAL_CHARACTER, '')).present?
     end
   end
