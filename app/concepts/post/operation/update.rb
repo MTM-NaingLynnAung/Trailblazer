@@ -6,8 +6,16 @@ module Post::Operation
     end
     step Nested(Present)
     step Contract::Validate(key: :post)
+    step :check_character!
     step Contract::Persist()
     step :current_image!
+
+    def check_character!(options, params:, **)
+      ban_keyword = Keyword.where(name: params[:post][:title])
+      if ban_keyword.empty?
+        true
+      end
+    end
 
     def current_image!(options, params:, **)
       if params[:post][:image].present?
