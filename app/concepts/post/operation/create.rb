@@ -6,8 +6,8 @@ module Post::Operation
     end
     step Nested(Present)
     step :current_user!
-    step :check_character!
     step Contract::Validate(key: :post)
+    step :check_character!
     step Contract::Persist()
     step :create_image
 
@@ -16,12 +16,9 @@ module Post::Operation
     end
 
     def check_character!(options, params:, **)
-      byebug
-      if params[:post][:title] == Constants::CHECK_KEYWORDS
-        errors.add(:title, 'Donot use this character')
-        return false
-      else
-        return true
+      ban_keyword = Keyword.where(name: params[:post][:title])
+      if ban_keyword.empty?
+        true
       end
     end
 

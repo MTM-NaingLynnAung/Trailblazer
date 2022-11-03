@@ -1,0 +1,9 @@
+= form_with model: keyword, local: true do |form|
+  .form-group
+    = form.label :name
+    = form.text_field :name, class: 'form-control'
+    - if keyword.errors.any?
+      .alert.alert-danger #{keyword.errors.full_messages_for(:name)[0]}
+  .d-flex.justify-content-between
+    = link_to 'Back', keywords_path, class: 'btn btn-outline-dark text-white'
+    = form.submit 'Confirm', class:'btn btn-outline-primary'

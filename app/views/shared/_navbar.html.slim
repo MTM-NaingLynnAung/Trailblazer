@@ -9,6 +9,8 @@ nav.navbar.navbar-expand-lg.navbar-light style="background: #020d1e"
         - if logged_in?
           li class="nav-item #{is_active(posts_path)}"
             = link_to 'Post List', posts_path, class: 'nav-link'
+          li class="nav-item #{is_active(keywords_path)}"
+           = link_to 'Ban Keyword List', keywords_path, class: 'nav-link'
       ul.navbar-nav.justify-content-end
         - if logged_in?
           li class="nav-item #{is_active(profile_users_path)}"
