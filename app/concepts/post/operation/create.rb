@@ -16,8 +16,9 @@ module Post::Operation
     end
 
     def check_character!(options, params:, **)
-      ban_keyword = Keyword.where(name: params[:post][:title].gsub(Constants::REMOVE_SPECIAL_CHARACTER, ''))
-                           .or(Keyword.where(name: params[:post][:description].gsub(Constants::REMOVE_SPECIAL_CHARACTER, '')))
+      
+      ban_keyword = Keyword.where(name: params[:post][:title].split)
+                           .or(Keyword.where(name: params[:post][:description].split))
       if ban_keyword.empty?
         true
       end
