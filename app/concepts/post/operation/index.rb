@@ -4,9 +4,9 @@ module Post::Operation
 
     def get_post_list(options, **)
       if options[:current_user].user_type == "User"
-        options[:model] = Post.where(user_id: options[:current_user].id).or(Post.where(privacy: 'TRUE')).order('id DESC')
+        options[:model] = Post.where(user_id: options[:current_user].id).or(Post.where(privacy: 'TRUE')).order('updated_at DESC')
       else
-        options[:model] = Post.all.order('id DESC')
+        options[:model] = Post.all.order('updated_at DESC')
       end
     end
   end

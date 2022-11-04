@@ -66,3 +66,7 @@ gem 'dry-validation'
 gem 'file_validators'
 gem 'carrierwave'
 gem 'pagy', '~> 5.10'
+
+gem "sidekiq", "~> 6.5"
+gem 'sinatra', github: 'sinatra/sinatra'
+gem "sidekiq-scheduler"

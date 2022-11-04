@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
   root 'login#login'
   post '/login', to: 'login#action_login'
   delete '/logout', to: 'login#logout'

@@ -2,6 +2,10 @@ class PostsController < ApplicationController
   before_action :authorized?
   def index
     run Post::Operation::Index, current_user: current_user
+    tomorrow = Date.tomorrow
+    if 1.day.from_now
+      NotifyJob.perform_now(result[:model])
+    end
     @pagy, @model = pagy(result[:model])
   end
 

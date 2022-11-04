@@ -22,8 +22,18 @@ module Post::Contract
     end
 
     def ban_keyword
-      errors.add(:title, "can't be use this keyword. Please check ban keywords list and avoid using this keywords.") if Keyword.where(name: title.gsub(Constants::REMOVE_SPECIAL_CHARACTER, '')).present?
-      errors.add(:description, "can't be use this keyword. Please check ban keywords list and avoid using this keywords.") if Keyword.where(name: description.gsub(Constants::REMOVE_SPECIAL_CHARACTER, '')).present?
+      ban_title = Keyword.where(name: title.split)
+      ban_char = []
+      ban_title.each do |char|
+        ban_char.append(char.name)
+      end
+      errors.add(:title, "can't be use this keyword. This #{ban_char.join(", ").upcase} keywords had banned in our services.") if ban_title.present?
+      ban_desc = Keyword.where(name: description.split)
+      ban_desc_char = []
+      ban_desc.each do |char|
+        ban_desc_char.append(char.name)
+      end
+      errors.add(:description, "can't be use this keyword. This #{ban_desc_char.join(", ").upcase} keywords had banned in our services.") if ban_desc.present?
     end
   end
 end
