@@ -1,0 +1,7 @@
+:schedule:
+  notify_job:
+    cron: '0 0 * * *'
+    class: NotifyJob
+  delete_post_job:
+    cron: '0 * */5 * *'
+    class: DeletePostJob

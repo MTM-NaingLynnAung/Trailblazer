@@ -1,5 +1,5 @@
 require 'sidekiq-scheduler'
-class NotifyJob < ApplicationJob
+class DeletePostJob < ApplicationJob
   queue_as :default
 
   def perform(*args)
@@ -20,8 +20,12 @@ class NotifyJob < ApplicationJob
     end
     users = User.where(id: users_id)
     users.each do |user|
-      NotifyMailer.with(email: user.email, post: posts.where(user_id: user.id)).notify.deliver_now
+      DeleteMailer.with(email: user.email).delete.deliver_now
+    end
+    if posts.present?
+      posts.each do |post|
+        post.destroy
+      end
     end
   end
-
 end

@@ -1,4 +1,9 @@
 'Hi 
-= params[:email]  
+= params[:email]
 .
-'Your Post had using ban keywords. Please fix this within 3 to 5days. If you don't fix, we will be delete this post
+- params[:post].each do |post|
+  p Post Title : #{post.title}
+  p Post Description : #{post.description}
+  p Post Privacy : #{post.privacy}
+  hr
+'We found, your posts had using ban keywords. Please change this within 3 to 5days. If you don't change, we will be delete this posts
