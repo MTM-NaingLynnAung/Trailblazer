@@ -38,7 +38,7 @@ RSpec.describe "Users", type: :request do
 
   # User Create
   context "POST /users/new" do
-    it 'User Create to success' do
+    it 'User Create with valid data' do
       post "/users", params: { 
                                 user: {
                                   name: 'rspec',
@@ -54,7 +54,7 @@ RSpec.describe "Users", type: :request do
       expect(flash[:notice]).to eq('User created successfully')
     end
 
-    it 'User Create to fail' do
+    it 'User Create with invalid data' do
       post "/users", params: {
                                 user: {
                                   name: 'rspec',
@@ -82,7 +82,7 @@ RSpec.describe "Users", type: :request do
 
   # User Update
   context "PATCH /users/:id/edit" do
-    it 'User Update to success' do
+    it 'User Update with valid data' do
       user = User.last
       patch "/users/#{user.id}", params: { user: 
                                             {
@@ -97,7 +97,7 @@ RSpec.describe "Users", type: :request do
       expect(flash[:notice]).to eq('User updated successfully')
     end
 
-    it 'User Update to fail' do
+    it 'User Update with invalid data' do
       user = User.last
       patch "/users/#{user.id}", params: { user: 
                                             {

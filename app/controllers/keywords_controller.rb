@@ -13,7 +13,7 @@ class KeywordsController < ApplicationController
       return redirect_to keywords_path, notice: 'Keyword created successfully'
     end
     flash[:alert] = 'Failed to create keyword'
-    render :new
+    render :new, status: :unprocessable_entity
   end
 
   def edit
@@ -25,7 +25,7 @@ class KeywordsController < ApplicationController
       return redirect_to keywords_path, notice: 'Keyword updated successfully'
     end
     flash[:alert] = 'Failed to update keyword'
-    render :edit
+    render :edit, status: :unprocessable_entity
   end
 
   def destroy

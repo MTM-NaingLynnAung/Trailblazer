@@ -34,6 +34,13 @@ RSpec.describe "Posts", type: :request do
       expect(response).to have_http_status(422)
       expect(response).to render_template(:new)
     end
+
+    it 'post can\'t create with ban keyword' do
+      post '/posts', params: { post: { title: 'mad ask', description: 'love', privacy: true } }
+      expect(flash[:alert]).to eq('Failed to create post')
+      expect(response).to have_http_status(422)
+      expect(response).to render_template(:new)
+    end
   end
 
   # Post Details
@@ -71,4 +78,60 @@ RSpec.describe "Posts", type: :request do
     end
   end
 
+  # Post Filter
+  context 'GET /posts/filter' do
+    it 'filter all posts' do
+      get '/posts/filter', params: { filter: 'All' }
+      expect(response).to have_http_status(200)
+      expect(response).to render_template(:index)
+    end
+
+    it 'filtering posts by created user' do
+      get '/posts/filter', params: { filter: 'My Posts' }
+      expect(response).to have_http_status(200)
+      expect(response).to render_template(:index)
+    end
+
+    it 'filtering posts by other user' do
+      get '/posts/filter', params: { filter: 'Other Posts' }
+      expect(response).to have_http_status(200)
+      expect(response).to render_template(:index)
+    end
+  end
+
+  # Search posts
+  context 'GET /posts/search' do
+    it 'seach posts' do
+      post = Post.create(post_params)
+      get '/posts/search', params: { search_keyword: 'post' }
+      expect(response).to have_http_status(200)
+      expect(response).to render_template(:index)
+    end
+  end
+
+  # Post csv export
+  context 'GET /posts/export' do
+    it 'post list csv export' do
+      Post.create(post_params)
+      get export_posts_path, params: { format: :csv }
+      expect(response).to have_http_status(200)
+      expect(response.body).to include('post title')
+    end
+  end
+
+  # Post csv import
+  context 'POST /posts/import' do
+    it 'post csv import with valid data' do
+      post "/posts/import", params: { file: fixture_file_upload("#{Rails.root}/spec/import_valid.csv", "text/csv") }
+      post = Post.last
+      expect(flash[:notice]).to eq("Import CSV successfully")
+      expect(post.title).to eq("lo.ves")
+    end
+
+    it 'post csv import with invalid data' do
+      post "/posts/import", params: { file: fixture_file_upload("#{Rails.root}/spec/import_invalid.csv", "text/csv") }
+      expect(response).to have_http_status(422)
+      expect(response).to render_template(:import)
+    end
+  end
 end
