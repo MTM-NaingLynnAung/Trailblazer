@@ -1,6 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  User.create!(
+    name: 'admin',
+    email: 'admin@gmail.com',
+    password: 'password',
+    password_confirmation: 'password',
+    user_type: 'Admin'
+  )
   subject {
     User.new(
       name: 'rspec test',
@@ -44,11 +51,6 @@ RSpec.describe User, type: :model do
     it 'is not valid, if password and password confirmation doesnt match' do
       subject.password = 'password'
       subject.password_confirmation = 'pass'
-      expect(subject).not_to be_valid
-    end
-
-    it 'is not valid, if password confirmation is blank' do 
-      subject.password_confirmation = nil
       expect(subject).not_to be_valid
     end
 

@@ -9,7 +9,7 @@ module Post::Contract
     validates :title, presence: true, length: { maximum: 30 }
     validates :description, presence: true
     validates :privacy, presence: true
-    validates :image, presence: true ,file_size: {less_than: 2.megabytes},
+    validates :image, file_size: {less_than: 2.megabytes},
                                       file_content_type: {allow: ['image/jpeg', 'image/png', 'image/webp']}
     validate :image_limit
     validate :ban_keyword

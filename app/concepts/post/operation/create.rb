@@ -26,10 +26,12 @@ module Post::Operation
 
     def create_image(options, params:, **)
       if params[:post][:image].present?
-        params[:post][:image].each do |image| 
+        params[:post][:image].each do |image|
           options['post_image'] = options[:model].post_attachments.create!(:image => image)
         end
-      end 
+      else
+        true
+      end
     end
   end
 end

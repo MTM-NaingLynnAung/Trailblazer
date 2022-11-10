@@ -2,11 +2,11 @@ require 'rails_helper'
 
 RSpec.describe Post, type: :model do
   user = User.create!(
-    name: 'test user',
-    email: 'test@gmail.com',
+    name: 'user',
+    email: 'user@gmail.com',
     password: 'a',
     password_confirmation: 'a',
-    user_type: 'Admin'
+    user_type: 'User'
   )
   subject { 
     Post.new(
