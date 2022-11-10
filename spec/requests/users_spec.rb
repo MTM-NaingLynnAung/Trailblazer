@@ -116,11 +116,19 @@ RSpec.describe "Users", type: :request do
   end
 
   # Delete User
-  context 'Delete users/:id' do
+  context 'DELETE users/:id' do
     it 'User Delete' do
       user = User.last
       delete "/users/#{user.id}"
       expect(flash[:notice]).to eq('User deleted successfully')
+    end
+  end
+
+  # Send Password Reset Link
+  context 'POST /password/reset' do
+    it 'Send Password Reset Link' do
+      post '/password/reset', params: { email: current_user.email }
+      expect(response).to redirect_to(root_path)
     end
   end
 

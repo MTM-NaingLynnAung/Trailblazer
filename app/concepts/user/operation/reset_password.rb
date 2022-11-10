@@ -13,6 +13,5 @@ module User::Operation
     step Contract::Validate(key: :user)
     step Contract::Persist()
 
-    end
   end
 end
