@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    run User::Operation::Create do |result|
+    run User::Operation::Create, current_user: current_user do |result|
       return redirect_to users_path, notice: 'User created successfully'
     end
     flash[:alert] = 'Failed to create user'

@@ -8,7 +8,7 @@ module User::Operation
         options[:model] = User.find(options['user_id'])
       end
     end
-    step Nested(Present)
+    step Subprocess(Present)
     step Contract::Validate(key: :user)
     step Contract::Persist()
   end

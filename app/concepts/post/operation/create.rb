@@ -4,7 +4,7 @@ module Post::Operation
       step Model(Post, :new)
       step Contract::Build(constant: Post::Contract::Create)
     end
-    step Nested(Present)
+    step Subprocess(Present)
     step :current_user!
     step Contract::Validate(key: :post)
     step :check_character!

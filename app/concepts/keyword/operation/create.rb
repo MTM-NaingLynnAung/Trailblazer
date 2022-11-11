@@ -4,7 +4,7 @@ module Keyword::Operation
       step Model(Keyword, :new)
       step Contract::Build(constant: Keyword::Contract::Create)
     end
-    step Nested(Present)
+    step Subprocess(Present)
     step Contract::Validate(key: :keyword)
     step Contract::Persist()
   end

@@ -49,10 +49,6 @@
     .form-group
       = form.label :user_type
       = form.select :user_type, ['User', 'Admin'], {}, { class: 'form-control' }
-  - else
-    .form-group hidden=('hidden')
-      = form.label :user_type
-      = form.hidden_field :user_type, class: 'form-control', value: 'User'
   .d-flex.justify-content-between.mb-3
     = link_to 'Back', back, class:'btn btn-outline-dark text-white'
     = form.submit 'Confirm', class:'btn btn-outline-primary'

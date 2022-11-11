@@ -4,7 +4,7 @@ module Post::Operation
       step Model(Post, :find_by)
       step Contract::Build(constant: Post::Contract::Update)
     end
-    step Nested(Present)
+    step Subprocess(Present)
     step Contract::Validate(key: :post)
     step :check_character!
     step Contract::Persist()

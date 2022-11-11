@@ -4,7 +4,7 @@ module User::Operation
       step Model(User, :new)
       step Contract::Build(constant: User::Contract::Login)
     end
-    step Nested(Present)
+    step Subprocess(Present)
     step Contract::Validate(key: :user)
     step :model!
 

@@ -9,7 +9,7 @@ module User::Operation
         rescue ActiveSupport::MessageVerifier::InvalidSignature
       end
     end
-    step Nested(Present)
+    step Subprocess(Present)
     step Contract::Validate(key: :user)
     step Contract::Persist()
 

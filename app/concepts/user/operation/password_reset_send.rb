@@ -4,7 +4,7 @@ module User::Operation
       step Model(User, :new)
       step Contract::Build(constant: User::Contract::PasswordResetSend)
     end
-    step Nested(Present)
+    step Subprocess(Present)
     step Contract::Validate()
     step :find_email!
     step :send_password_reset!

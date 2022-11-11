@@ -4,8 +4,17 @@ module User::Operation
       step Model(User, :new)
       step Contract::Build(constant: User::Contract::Create)
     end
-    step Nested(Present)
+    step Subprocess(Present)
+    step :user_type!
     step Contract::Validate(key: :user)
     step Contract::Persist()
+
+    def user_type!(options, params:, **)
+      if options['current_user'].nil?
+        params[:user][:user_type] = 'User'
+      else
+        true
+      end
+    end
   end
 end
