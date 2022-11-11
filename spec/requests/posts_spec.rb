@@ -14,6 +14,14 @@ RSpec.describe "Posts", type: :request do
     }
   }
 
+  let(:invalid_params) {
+    {
+      title: '',
+      description: '',
+      privacy: ''
+    }
+  }
+
   # Post List
   context "GET /posts" do
     it "get post list" do
@@ -30,13 +38,15 @@ RSpec.describe "Posts", type: :request do
     end
 
     it 'Fail values for create post' do
-      post "/posts", params: { post: { title: '', description: '', privacy: '' } }
+      post "/posts", params: { post: invalid_params }
       expect(response).to have_http_status(422)
       expect(response).to render_template(:new)
     end
 
     it 'post can\'t create with ban keyword' do
-      post '/posts', params: { post: { title: 'mad ask', description: 'love', privacy: true } }
+      post_params[:title] = "mad ask"
+      post_params[:description] = "love"
+      post '/posts', params: { post: post_params }
       expect(flash[:alert]).to eq('Failed to create post')
       expect(response).to have_http_status(422)
       expect(response).to render_template(:new)
@@ -57,13 +67,13 @@ RSpec.describe "Posts", type: :request do
   context 'PATCH /posts/:id/edit' do
     it 'Valid values for Post Update' do
       post = Post.create(post_params)
-      patch "/posts/#{post.id}", params: { post: { title: 'update title', description: 'update description', privacy: false } }
+      patch "/posts/#{post.id}", params: { post: post_params }
       expect(flash[:notice]).to eq('Post updated successfully')
     end
 
     it "Fail values for Post Update" do
       post = Post.create(post_params)
-      patch "/posts/#{post.id}", params: { post: { title: '', description: '', privacy: '' } }
+      patch "/posts/#{post.id}", params: { post: invalid_params }
       expect(response).to have_http_status(422)
       expect(response).to render_template(:edit)
     end

@@ -4,6 +4,18 @@ RSpec.describe "Keywords", type: :request do
   before do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(current_user)
   end
+
+  let(:keyword_params){
+    {
+      name: "test"
+    }
+  }
+
+  let(:invalid_params){
+    {
+      name: ''
+    }
+  }
   # Keywords List
   context "GET /keywords" do
     it "get keywords list" do
@@ -16,18 +28,19 @@ RSpec.describe "Keywords", type: :request do
   # Keyword Create
   context "POST /keywords/new" do
     it "create keywords with valid data" do
-      post "/keywords", params: { keyword: { name: "test" } }
+      post "/keywords", params: { keyword: keyword_params }
       expect(flash[:notice]).to eq("Keyword created successfully")
     end
 
     it "create keywords with invalid data" do
-      post "/keywords", params: { keyword: { name: "" } }
+      post "/keywords", params: { keyword: invalid_params }
       expect(response).to have_http_status(422)
       expect(response).to render_template(:new)
     end
 
-    it "create with existing keywords" do
-      post "/keywords", params: { keyword: { name: "ask" } }
+    it "can't create with existing keywords" do
+      keyword_params[:name] = "ask"
+      post "/keywords", params: { keyword: keyword_params }
       expect(response).to have_http_status(422)
       expect(response).to render_template(:new)
     end
@@ -37,13 +50,14 @@ RSpec.describe "Keywords", type: :request do
   context "PATCH /keywords/:id/edit" do
     it 'Valid keywords to update' do
       keyword = Keyword.last
-      patch "/keywords/#{keyword.id}", params: { keyword: { name: 'update' } }
+      keyword_params[:name] = 'update'
+      patch "/keywords/#{keyword.id}", params: { keyword: keyword_params }
       expect(flash[:notice]).to eq("Keyword updated successfully")
     end
 
     it "Invalid keywords to update" do
       keyword = Keyword.last
-      patch "/keywords/#{keyword.id}", params: { keyword: { name: '' } }
+      patch "/keywords/#{keyword.id}", params: { keyword: invalid_params }
       expect(response).to have_http_status(422)
       expect(response).to render_template(:edit)
     end

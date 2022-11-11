@@ -5,6 +5,28 @@ RSpec.describe "Users", type: :request do
   before do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(current_user)
   end
+
+  let(:user_params) { 
+    {
+      name: 'rspec',
+      email: 'rspec@gmail.com',
+      phone: '09213456543',
+      address: 'address test',
+      dob: "2022-10-31",
+      user_type: 'User'
+    }
+  }
+
+  let(:invalid_params) {
+    {
+      name: '',
+      email: '',
+      phone: '09213456543',
+      address: 'address test',
+      dob: "2022-10-31",
+      user_type: 'User'
+    }
+  }
   # User Login
   context "POST /posts" do
     it 'invalid credentials' do
@@ -39,31 +61,16 @@ RSpec.describe "Users", type: :request do
   # User Create
   context "POST /users/new" do
     it 'User Create with valid data' do
-      post "/users", params: { 
-                                user: {
-                                  name: 'rspec',
-                                  email: 'rspec@gmail.com',
-                                  password: 'password',
-                                  password_confirmation: 'password',
-                                  phone: '09213456543',
-                                  address: 'address test',
-                                  dob: "2022-10-31",
-                                  user_type: 'User'
-                                }
-                              }
+      user_params[:password] = 'password'
+      user_params[:password_confirmation] = 'password'
+      post "/users", params: { user: user_params }
       expect(flash[:notice]).to eq('User created successfully')
     end
 
     it 'User Create with invalid data' do
-      post "/users", params: {
-                                user: {
-                                  name: 'rspec',
-                                  email: 'rspec@gmail.com',
-                                  password: 'password',
-                                  password_confirmation: 'pass',
-                                  user_type: 'User'
-                                }
-                              }
+      user_params[:password] = 'password'
+      user_params[:password_confirmation] = 'pass'
+      post "/users", params: { user: invalid_params }
       expect(response).to render_template(:new)
       expect(response).to have_http_status(422)
     end
@@ -84,31 +91,13 @@ RSpec.describe "Users", type: :request do
   context "PATCH /users/:id/edit" do
     it 'User Update with valid data' do
       user = User.last
-      patch "/users/#{user.id}", params: { user: 
-                                            {
-                                              name: 'update',
-                                              email: 'test@gmail.com',
-                                              phone: '09124356756',
-                                              address: 'address test update',
-                                              dob: "2022-10-21",
-                                              user_type: 'Admin'
-                                            }
-                                          }
+      patch "/users/#{user.id}", params: { user: user_params }
       expect(flash[:notice]).to eq('User updated successfully')
     end
 
     it 'User Update with invalid data' do
       user = User.last
-      patch "/users/#{user.id}", params: { user: 
-                                            {
-                                              name: '',
-                                              email: 'test@gmail.com',
-                                              phone: '09124356756',
-                                              address: 'address test update',
-                                              dob: "2022-10-21",
-                                              user_type: 'Admin'
-                                            }
-                                          }
+      patch "/users/#{user.id}", params: { user: invalid_params }
       expect(response).to render_template(:edit)
       expect(response).to have_http_status(422)
     end
