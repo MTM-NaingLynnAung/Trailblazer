@@ -5,11 +5,19 @@ module Post::Operation
     def filter_posts!(options, params:, **)
       case params[:filter]
       when 'All'
-        options[:model] = Post.all.order('id DESC')
+        if options[:current_user][:user_type] == 'Admin'
+          options[:model] = Post.all.order('updated_at DESC')
+        else
+          options[:model] = Post.where(user_id: options[:current_user].id).or(Post.where(privacy: 'TRUE')).order('updated_at DESC')
+        end
       when 'Other Posts'
-        options[:model] = Post.where.not(user_id: options[:current_user_id]).order('id DESC')
+        if options[:current_user][:user_type] == 'Admin'
+          options[:model] = Post.where.not(user_id: options[:current_user][:id]).order('updated_at DESC')
+        else
+          options[:model] = Post.where.not(user_id: options[:current_user][:id]).where(privacy: 'TRUE').order('updated_at DESC')
+        end
       when 'My Posts'
-        options[:model] = Post.where(user_id: options[:current_user_id]).order('id DESC')
+        options[:model] = Post.where(user_id: options[:current_user][:id]).order('updated_at DESC')
       end
       options[:last_filter] = params[:filter]
     end

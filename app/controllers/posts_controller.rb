@@ -41,7 +41,7 @@ class PostsController < ApplicationController
   end
 
   def search
-    run Post::Operation::Search do |result|
+    run Post::Operation::Search, current_user: current_user do |result|
       @last_search_keyword = result[:last_search_keyword]
       @pagy, @model = pagy(result[:model])
       render :index
@@ -50,7 +50,7 @@ class PostsController < ApplicationController
   end
 
   def filter
-    run Post::Operation::Filter, current_user_id: current_user.id do |result|
+    run Post::Operation::Filter, current_user: current_user do |result|
       @last_filter = result[:last_filter]
       @pagy, @model = pagy(result[:model])  
       render :index

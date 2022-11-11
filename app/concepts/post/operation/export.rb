@@ -10,10 +10,9 @@ module Post::Operation::Export
       elsif params[:search].present? && options[:current_user][:user_type] == 'User'
         options[:posts] = Post.where("user_id = #{options[:current_user][:id]}").where("title LIKE :search or description LIKE :search", search: "%#{params[:search]}%")
       elsif options[:current_user][:user_type] == 'Admin'
-        options[:posts] = Post.all.order('id DESC')
+        options[:posts] = Post.all.order('updated_at DESC')
       else
-        options[:posts] = Post.where(user_id: options[:current_user][:id], privacy: 'TRUE')
-      
+        options[:posts] = Post.where(user_id: options[:current_user][:id])
       end
     end
 
