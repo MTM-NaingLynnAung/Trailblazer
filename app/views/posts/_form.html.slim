@@ -11,14 +11,21 @@
       .alert.alert-danger #{ post.errors.full_messages_for(:description)[0] }
   .form-group
     label.required.d-block Privacy Setting
-    .d-flex
+    .d-flex.mb-2
       = form.radio_button :privacy, true  
-      = form.label :privacy, 'Public', :value => 'true'
+      = form.label :privacy, 'Public', :value => 'true', style: 'margin-left: 6px'
     .d-flex
       = form.radio_button :privacy, false
-      = form.label :privacy, 'Private', :value => 'false'
+      = form.label :privacy, 'Private', :value => 'false', style: 'margin-left: 6px'
     - if post.errors[:privacy].any?
       .alert.alert-danger #{ post.errors.full_messages_for(:privacy)[0] }
+  .form-group.d-flex.justify-content-between
+    div style="width: 200px"
+      = form.label 'To Change Public In'
+      = form.date_field :public_schedule, class: 'form-control', id: 'public_schedule', value: post.public_schedule
+    div style="width: 200px"
+      = form.label 'To Change Private In'
+      = form.date_field :private_schedule, class: 'form-control', id: 'private_schedule', value: post.private_schedule
   .form-group
     = form.label :image
     = form.file_field :image, multiple: true, class: 'form-control mb-1', accept: 'image/png,image/jpeg'
@@ -27,3 +34,5 @@
   .d-flex.justify-content-between.mb-3
     = link_to 'Back', back, class:'btn btn-outline-dark text-white'
     = form.submit 'Confirm', class:'btn btn-outline-primary'
+
+= javascript_pack_tag 'post/_form'

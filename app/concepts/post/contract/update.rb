@@ -6,6 +6,8 @@ module Post::Contract
     property :privacy
     property :user_id
     property :image, virtual: true
+    property :public_schedule
+    property :private_schedule
 
     validates :image, allow_blank: true, file_size: {less_than: 2.megabytes},
                                     file_content_type: {allow: ['image/jpeg', 'image/png', 'image/webp']}

@@ -5,6 +5,8 @@ module Post::Contract
     property :privacy
     property :user_id
     property :image, virtual: true
+    property :public_schedule
+    property :private_schedule
 
     validates :title, presence: true, length: { maximum: 30 }
     validates :description, presence: true
