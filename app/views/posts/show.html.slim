@@ -1,17 +1,54 @@
 - if current_user.user_type == 'Admin' || @model.privacy == true || @model.user_id == current_user.id
-  .card.my-3.col-8.mx-auto.text-white style="background: #020d1e"
-    .card-header.py-2
-      h5.mb-0 #{ @model.title.upcase } #{ @model.privacy == false ?'<i class="fa-sharp fa-solid fa-lock" style="font-size: 13px;"></i>'.html_safe : '<i class="fa-sharp fa-solid fa-earth-asia" style="font-size: 13px;"></i>'.html_safe }
-      span style="font-size:12px;" Last updated on : #{ @model.created_at.strftime("%Y/%m/%d %I:%M:%S %p") }
-    .card-body
-      p.card-text.mx-3 #{ @model.description }
-      .d-flex.justify-content-around
-        - @model.post_attachments.each do |image|
-          - if image.image_url
-            = image_tag image.image_url, style: 'width:100px;height:100px'
-    - if can_edit(@model)
-      .d-flex.justify-content-between.mb-3
-        = link_to 'Back', posts_path, class: 'btn btn-outline-dark text-white'
-        = link_to 'Edit Post', edit_post_path(@model), class: 'btn btn-outline-secondary text-white'
+  
+  table.table.mt-5
+    thead
+      tr
+        th Updated Date
+        th Action
+    tbody
+      tr
+        td
+          = link_to @model.updated_at.strftime("%Y/%m/%d %I:%M:%S %p"), "#", "data-toggle" => "modal", "data-target" => "#restorepost_#{@model.id}"
+        td
+          = link_to 'Restore', @model.restore_attributes.present? ? @model.restore_attributes : '#', class: 'btn btn-sm btn-outline-success'
+      .modal.fade id="restorepost_#{@model.id}"
+        .modal-dialog
+          .modal-content style="background: #020d1e"
+            .modal-header
+              h5.modal-title AFTER
+            .modal-body
+              .card.col-8.text-white style="background: #020d1e"
+                .card-header
+                  h5.mb-0 #{ @model.title.upcase } #{ @model.privacy == false ?'<i class="fa-sharp fa-solid fa-lock" style="font-size: 13px;"></i>'.html_safe : '<i class="fa-sharp fa-solid fa-earth-asia" style="font-size: 13px;"></i>'.html_safe }
+                  span style="font-size:12px;" Last updated on : #{ @model.created_at.strftime("%Y/%m/%d %I:%M:%S %p") }
+                .card-body
+                  p.card-text #{ @model.description }
+                  .d-flex.justify-content-around
+                    - @model.post_attachments.each do |image|
+                      - if image.image_url
+                        = image_tag image.image_url, style: 'width:100px;height:100px'
+            hr style="width: 100%; background: #fff"
+            .modal-header
+              h5.modal-title BEFORE
+            .modal-body
+              .card.col-8.text-white style="background: #020d1e"
+                .card-header
+                  h5.mb-0 #{ @model.title.upcase } #{ @model.privacy == false ?'<i class="fa-sharp fa-solid fa-lock" style="font-size: 13px;"></i>'.html_safe : '<i class="fa-sharp fa-solid fa-earth-asia" style="font-size: 13px;"></i>'.html_safe }
+                  span style="font-size:12px;" Last updated on : #{ @model.created_at.strftime("%Y/%m/%d %I:%M:%S %p") }
+                .card-body
+                  p.card-text.mx-3 #{ @model.description }
+                  .d-flex.justify-content-around
+                    - @model.post_attachments.each do |image|
+                      - if image.image_url
+                        = image_tag image.image_url, style: 'width:100px;height:100px'
+            .modal-footer.d-flex.justify-content-between
+              = link_to 'Cancel', @model, class: 'btn btn-outline-dark text-white', "data-dimiss"=>"modal"
+              - if can_edit(@model)
+                = link_to 'Edit Post', edit_post_path(@model), class: 'btn btn-outline-secondary text-white'
+
+  - if can_edit(@model)
+    .d-flex.justify-content-between.mb-3
+      = link_to 'Back', posts_path, class: 'btn btn-outline-dark text-white'
+
 - else
   == render file: "#{Rails.root}/public/404.html"
