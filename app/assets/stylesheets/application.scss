@@ -121,11 +121,32 @@ select + i.fa {
 .timer-none {
   display: none;
 }
+button:focus {
+  outline: none !important;
+}
+
+.close {
+  color: #fff;
+}
+
+.close:hover, .close:focus {
+  color: #fff;
+}
+
+.remove-padd {
+  padding: 0;
+}
+
+.modal-width .modal-body {
+  padding: 1rem 2rem;
+}
+.modal-width .modal-header {
+  border: none;
+}
 
 @media (min-width: 576px) {
-  .modal-dialog {
-    max-width: 70%;
+  .modal-width {
+    max-width: 65%;
     margin: 1.75rem auto;
   }
 }
-

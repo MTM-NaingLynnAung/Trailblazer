@@ -6,9 +6,21 @@ module Post::Operation
     end
     step Subprocess(Present)
     step Contract::Validate(key: :post)
+    step :create_history
     step :check_character!
     step Contract::Persist()
     step :current_image!
+
+    def create_history(options, params:, **)
+      History.create!(
+        title: options[:model][:title],
+        description: options[:model][:description],
+        privacy: options[:model][:privacy],
+        public_schedule: options[:model][:public_schedule],
+        private_schedule: options[:model][:private_schedule],
+        post_id: options[:model][:id]
+      )
+    end
 
     def check_character!(options, params:, **)
       ban_keyword = Keyword.where(name: params[:post][:title].split)

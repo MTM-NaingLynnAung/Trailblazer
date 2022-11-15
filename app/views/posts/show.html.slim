@@ -1,54 +1,95 @@
 - if current_user.user_type == 'Admin' || @model.privacy == true || @model.user_id == current_user.id
-  
-  table.table.mt-5
-    thead
-      tr
-        th Updated Date
-        th Action
-    tbody
-      tr
-        td
-          = link_to @model.updated_at.strftime("%Y/%m/%d %I:%M:%S %p"), "#", "data-toggle" => "modal", "data-target" => "#restorepost_#{@model.id}"
-        td
-          = link_to 'Restore', @model.restore_attributes.present? ? @model.restore_attributes : '#', class: 'btn btn-sm btn-outline-success'
-      .modal.fade id="restorepost_#{@model.id}"
-        .modal-dialog
+  .card.my-3.col-10.mx-auto.text-white style="background: #020d1e"
+    .card-header.py-2
+      h5.mb-0 #{ @model.title.upcase } #{ @model.privacy == false ?'<i class="fa-sharp fa-solid fa-lock" style="font-size: 13px;"></i>'.html_safe : '<i class="fa-sharp fa-solid fa-earth-asia" style="font-size: 13px;"></i>'.html_safe }
+      span style="font-size:12px;" Last updated on : #{ @model.created_at.strftime("%Y/%m/%d %I:%M:%S %p") }
+    .card-body
+      p.card-text.mx-3 #{ @model.description }
+      .d-flex.justify-content-around
+        - @model.post_attachments.each do |image|
+          - if image.image_url
+            = image_tag image.image_url, style: 'width:100px;height:100px'
+    - if can_edit(@model)
+      .d-flex.justify-content-between.mb-3
+        = link_to 'Back', posts_path, class: 'btn btn-outline-dark text-white'
+        = link_to 'Edit Post', edit_post_path(@model), class: 'btn btn-outline-secondary text-white'
+  - if @model.history.present?
+    table.table.mt-5 style="width:80%; margin: 0 auto;"
+      thead
+        tr
+          th Updated Date
+          th Action
+      tbody
+        - @model.history.desc.each do |history|
+          tr
+            td
+              = link_to history.updated_at.strftime("%Y/%m/%d %I:%M:%S %p"), "#", "data-toggle" => "modal", "data-target" => "#showhistory_#{history.id}"
+            td
+              - if can_edit(@model)
+                = link_to 'Restore', "#", class: 'btn btn-sm btn-outline-success mr-2', "data-toggle" => "modal", "data-target" => "#restorepost_#{history.id}"
+                = link_to 'Delete', "#", class: 'btn btn-sm btn-outline-danger', "data-toggle" => "modal", "data-target" => "#deletehistory#{history.id}"
+
+          .modal.fade id="restorepost_#{history.id}"
+            .modal-dialog 
+              .modal-content style="background: #020d1e"
+                .modal-header
+                  h5.modal-title Restore Confirmation
+                .modal-body
+                  p Are you sure to restore?
+                .modal-footer.d-flex.justify-content-between
+                  button type="button" class="btn btn-outline-dark text-white" data-dismiss="modal" Cancel
+                  = form_with model: @model do |form|
+                    = form.hidden_field :title, value: history.title
+                    = form.hidden_field :description, value: history.description
+                    = form.hidden_field :privacy, value: history.privacy
+                    = form.hidden_field :public_schedule, value: history.public_schedule
+                    = form.hidden_field :private_schedule, value: history.private_schedule
+                    = form.submit 'Confirm', class: 'btn btn-outline-primary'
+
+
+          .modal.fade id="deletehistory#{history.id}"
+            .modal-dialog 
+              .modal-content style="background: #020d1e"
+                .modal-header
+                  h5.modal-title Delete Confirmation
+                .modal-body
+                  p Are you sure to delete?
+                .modal-footer.d-flex.justify-content-between
+                  button type="button" class="btn btn-outline-dark text-white" data-dismiss="modal" Cancel
+                  = button_to 'Delete', history, method: :delete, :class => 'btn btn-outline-danger'
+
+    - @model.history.desc.each do |history|
+      .modal.fade id="showhistory_#{history.id}"
+        .modal-dialog.modal-width
           .modal-content style="background: #020d1e"
             .modal-header
-              h5.modal-title AFTER
+              h5.modal-title CHANGES VALUE
+              button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                span aria-hidden="true" &times;
             .modal-body
-              .card.col-8.text-white style="background: #020d1e"
-                .card-header
-                  h5.mb-0 #{ @model.title.upcase } #{ @model.privacy == false ?'<i class="fa-sharp fa-solid fa-lock" style="font-size: 13px;"></i>'.html_safe : '<i class="fa-sharp fa-solid fa-earth-asia" style="font-size: 13px;"></i>'.html_safe }
-                  span style="font-size:12px;" Last updated on : #{ @model.created_at.strftime("%Y/%m/%d %I:%M:%S %p") }
-                .card-body
-                  p.card-text #{ @model.description }
-                  .d-flex.justify-content-around
-                    - @model.post_attachments.each do |image|
-                      - if image.image_url
-                        = image_tag image.image_url, style: 'width:100px;height:100px'
-            hr style="width: 100%; background: #fff"
-            .modal-header
-              h5.modal-title BEFORE
-            .modal-body
-              .card.col-8.text-white style="background: #020d1e"
-                .card-header
-                  h5.mb-0 #{ @model.title.upcase } #{ @model.privacy == false ?'<i class="fa-sharp fa-solid fa-lock" style="font-size: 13px;"></i>'.html_safe : '<i class="fa-sharp fa-solid fa-earth-asia" style="font-size: 13px;"></i>'.html_safe }
-                  span style="font-size:12px;" Last updated on : #{ @model.created_at.strftime("%Y/%m/%d %I:%M:%S %p") }
-                .card-body
-                  p.card-text.mx-3 #{ @model.description }
-                  .d-flex.justify-content-around
-                    - @model.post_attachments.each do |image|
-                      - if image.image_url
-                        = image_tag image.image_url, style: 'width:100px;height:100px'
-            .modal-footer.d-flex.justify-content-between
-              = link_to 'Cancel', @model, class: 'btn btn-outline-dark text-white', "data-dimiss"=>"modal"
-              - if can_edit(@model)
-                = link_to 'Edit Post', edit_post_path(@model), class: 'btn btn-outline-secondary text-white'
-
-  - if can_edit(@model)
-    .d-flex.justify-content-between.mb-3
-      = link_to 'Back', posts_path, class: 'btn btn-outline-dark text-white'
-
+              table.table.table-bordered
+                thead
+                  tr
+                    td
+                    td Title
+                    td Description
+                    td Privacy
+                    td Public Schedule
+                    td Private Schedule
+                tbody
+                  tr.text-danger
+                    td BEFORE
+                    td == history.title 
+                    td == history.description.truncate(50)
+                    td == history.privacy 
+                    td == history.public_schedule 
+                    td == history.private_schedule 
+                  tr.text-success
+                    td AFTER
+                    td == @model.title
+                    td == @model.description.truncate(50)
+                    td == @model.privacy
+                    td == @model.public_schedule
+                    td == @model.private_schedule
 - else
   == render file: "#{Rails.root}/public/404.html"
