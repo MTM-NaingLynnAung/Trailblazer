@@ -18,14 +18,15 @@
       thead
         tr
           th Updated Date
-          th Action
+          - if current_user.user_type == 'Admin'
+            th Action
       tbody
         - @model.history.desc.each do |history|
           tr
             td
               = link_to history.updated_at.strftime("%Y/%m/%d %I:%M:%S %p"), "#", "data-toggle" => "modal", "data-target" => "#showhistory_#{history.id}"
-            td
-              - if can_edit(@model)
+            - if can_edit(@model)
+              td
                 = link_to 'Restore', "#", class: 'btn btn-sm btn-outline-success mr-2', "data-toggle" => "modal", "data-target" => "#restorepost_#{history.id}"
                 = link_to 'Delete', "#", class: 'btn btn-sm btn-outline-danger', "data-toggle" => "modal", "data-target" => "#deletehistory#{history.id}"
 
