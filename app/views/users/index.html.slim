@@ -22,13 +22,13 @@
             = link_to 'Detail', user, class: 'btn btn-sm btn-outline-success mr-2'
             = link_to 'Delete', "#", "data-toggle" => "modal", "data-target" => "#deletepost_#{user.id}", class: 'btn btn-sm btn-outline-danger'
     
-        .modal.fade id="deletepost_#{user.id}"
-                  .modal-dialog 
-                    .modal-content style="background: #020d1e"
-                      .modal-header
-                        h5.modal-title Delete Confirmation
-                      .modal-body
-                        p Are you sure to delete?
-                      .modal-footer.d-flex.justify-content-between
-                        = link_to 'Cancel', users_path, class: 'btn btn-outline-dark text-white', "data-dimiss"=>"modal"
-                        = button_to 'Delete', user, method: :delete, :class => 'btn btn-outline-danger'
+            .modal.fade id="deletepost_#{user.id}"
+              .modal-dialog 
+                .modal-content style="background: #020d1e"
+                  .modal-header
+                    h5.modal-title Delete Confirmation
+                  .modal-body
+                    p Are you sure to delete?
+                  .modal-footer.d-flex.justify-content-between
+                    = link_to 'Cancel', users_path, class: 'btn btn-outline-dark text-white', "data-dimiss"=>"modal"
+                    = button_to 'Delete', user, method: :delete, :class => 'btn btn-outline-danger'
